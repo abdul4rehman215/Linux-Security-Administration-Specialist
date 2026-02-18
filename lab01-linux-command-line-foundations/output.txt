@@ -1,0 +1,197 @@
+toor@ip-172-31-10-184:~$ pwd
+/home/toor
+
+
+toor@ip-172-31-10-184:~$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
+
+
+toor@ip-172-31-10-184:~$ ls -l
+total 32
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Desktop
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Documents
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Downloads
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Music
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Pictures
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Public
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Templates
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Videos
+
+
+toor@ip-172-31-10-184:~$ ls -la
+total 96
+drwxr-x--- 14 toor toor 4096 Feb 18 09:10 .
+drwxr-xr-x  3 root root 4096 Feb 18 09:05 ..
+-rw-------  1 toor toor  220 Feb 18 09:05 .bash_logout
+-rw-r--r--  1 toor toor 3771 Feb 18 09:05 .bashrc
+-rw-r--r--  1 toor toor  807 Feb 18 09:05 .profile
+drwxr-xr-x  2 toor toor 4096 Feb 18 09:10 Desktop
+drwxr-xr-x  2 toor toor 4096 Feb 18 09:10 Documents
+drwxr-xr-x  2 toor toor 4096 Feb 18 09:10 Downloads
+drwxr-xr-x  2 toor toor 4096 Feb 18 09:10 Music
+drwxr-xr-x  2 toor toor 4096 Feb 18 09:10 Pictures
+drwxr-xr-x  2 toor toor 4096 Feb 18 09:10 Public
+drwxr-xr-x  2 toor toor 4096 Feb 18 09:10 Templates
+drwxr-xr-x  2 toor toor 4096 Feb 18 09:10 Videos
+
+
+toor@ip-172-31-10-184:/$ pwd
+/
+
+
+toor@ip-172-31-10-184:/$ ls -l
+total 72
+drwxr-xr-x   2 root root  4096 Feb 18 09:05 bin
+drwxr-xr-x   4 root root  4096 Feb 18 09:05 boot
+drwxr-xr-x  19 root root  4020 Feb 18 09:05 dev
+drwxr-xr-x  94 root root  4096 Feb 18 09:05 etc
+drwxr-xr-x   3 root root  4096 Feb 18 09:05 home
+drwxr-xr-x  20 root root  4096 Feb 18 09:05 lib
+drwxr-xr-x   2 root root  4096 Feb 18 09:05 media
+drwxr-xr-x   2 root root  4096 Feb 18 09:05 mnt
+drwxr-xr-x   2 root root  4096 Feb 18 09:05 opt
+dr-xr-xr-x 193 root root     0 Feb 18 09:05 proc
+drwx------   4 root root  4096 Feb 18 09:05 root
+drwxr-xr-x  24 root root   760 Feb 18 09:10 run
+drwxr-xr-x   2 root root  4096 Feb 18 09:05 sbin
+drwxr-xr-x   2 root root  4096 Feb 18 09:05 srv
+dr-xr-xr-x  13 root root     0 Feb 18 09:05 sys
+drwxrwxrwt  10 root root  4096 Feb 18 09:10 tmp
+drwxr-xr-x  10 root root  4096 Feb 18 09:05 usr
+drwxr-xr-x  13 root root  4096 Feb 18 09:05 var
+
+
+toor@ip-172-31-10-184:/home$ ls -l
+total 4
+drwxr-x--- 14 toor toor 4096 Feb 18 09:10 toor
+
+
+toor@ip-172-31-10-184:~$ pwd
+/home/toor
+
+
+toor@ip-172-31-10-184:~$ ls -l
+total 36
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Desktop
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Documents
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Downloads
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:15 lab_practice
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Music
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Pictures
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Public
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Templates
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:10 Videos
+
+
+toor@ip-172-31-10-184:~/lab_practice$ ls -l
+total 12
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:16 documents
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:16 images
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:16 scripts
+
+
+toor@ip-172-31-10-184:~/lab_practice$ ls -l
+total 12
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:16 documents
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:16 images
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:16 scripts
+-rw-r--r-- 1 toor toor    0 Feb 18 09:18 file1.txt
+-rw-r--r-- 1 toor toor    0 Feb 18 09:18 file2.txt
+-rw-r--r-- 1 toor toor    0 Feb 18 09:18 file3.txt
+-rw-r--r-- 1 toor toor    0 Feb 18 09:17 sample.txt
+
+
+toor@ip-172-31-10-184:~/lab_practice$ ls -l documents/
+total 0
+-rw-r--r-- 1 toor toor 0 Feb 18 09:19 file1.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:19 file2.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:19 file3.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:19 sample.txt
+
+
+toor@ip-172-31-10-184:~/lab_practice$ ls -l documents_backup/
+total 0
+-rw-r--r-- 1 toor toor 0 Feb 18 09:19 file1.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:19 file2.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:19 file3.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:19 sample.txt
+
+
+toor@ip-172-31-10-184:~/lab_practice$ ls -l images/
+total 0
+-rw-r--r-- 1 toor toor 0 Feb 18 09:22 move_test.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:24 temp1.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:24 temp2.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 09:24 temp3.txt
+
+
+toor@ip-172-31-10-184:~/lab_practice$ ls -l
+total 16
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:16 documents
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:24 images
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:23 scripts
+drwxr-xr-x 2 toor toor 4096 Feb 18 09:19 documents_backup
+-rw-r--r-- 1 toor toor    0 Feb 18 09:18 file1.txt
+-rw-r--r-- 1 toor toor    0 Feb 18 09:18 file2.txt
+-rw-r--r-- 1 toor toor    0 Feb 18 09:18 file3.txt
+-rw-r--r-- 1 toor toor    0 Feb 18 09:17 sample.txt
+-rw-r--r-- 1 toor toor    0 Feb 18 09:19 renamed_sample.txt
+
+
+toor@ip-172-31-10-184:~/lab_practice$ ls -l scripts/
+total 0
+-rw-r--r-- 1 toor toor 0 Feb 18 09:23 final_sample.txt
+
+
+rm: remove regular empty file 'careful_delete.txt'? y
+
+
+6c6
+< ip_address=192.168.1.150
+---
+> ip_address=192.168.1.100
+
+
+toor@ip-172-31-10-184:~/lab_practice$ find . -type f -name "*.txt" | head -10
+./documents/file1.txt
+./documents/file2.txt
+./documents/file3.txt
+./documents/sample.txt
+./documents/my_first_file.txt
+./documents/advanced_file.txt
+./documents/system_config.txt
+./documents/system_config_backup.txt
+./documents_backup/file1.txt
+./documents_backup/file2.txt
+
+
+toor@ip-172-31-10-184:~/lab_practice$ find . -type f | wc -l
+16
+
+
+toor@ip-172-31-10-184:~/lab_practice$ du -sh .
+72K	.
+
+
+Linux Command Line Foundations Lab - Completion Summary
+
+Completed Tasks:
+
+1. Directory Navigation
+ - Used pwd, cd, ls commands successfully
+ - Navigated absolute and relative paths
+ - Created directory structure
+
+2. File Management
+ - Created files with touch command
+ - Copied files and directories with cp
+ - Moved and renamed files with mv
+ - Safely removed files and directories with rm
+
+3. Text Editing
+ - Created and edited files with nano
+ - Used vim for advanced text editing
+ - Practiced both editors' basic operations
+
+Files Created: 16 (verified using find command)
+Directories Created: documents, images, scripts, documents_backup
