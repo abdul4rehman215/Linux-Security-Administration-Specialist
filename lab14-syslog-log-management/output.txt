@@ -1,0 +1,145 @@
+========================================
+TASK 1: RSYSLOG VERIFICATION
+========================================
+
+ii  rsyslog  8.2312.0-3ubuntu1  amd64  reliable system and kernel logging daemon
+
+● rsyslog.service - System Logging Service
+   Loaded: loaded (/lib/systemd/system/rsyslog.service; enabled)
+   Active: active (running)
+   Main PID: 1134 (rsyslogd)
+
+Backup created successfully.
+
+========================================
+RSYSLOG REMOTE CONFIGURATION
+========================================
+
+udp   0  0 127.0.0.1:514   0.0.0.0:*   1134/rsyslogd
+tcp   0  0 0.0.0.0:514     0.0.0.0:*   1134/rsyslogd
+
+Remote logging enabled.
+
+========================================
+REMOTE LOG TEST
+========================================
+
+Feb 18 18:15:42 ip-172-31-10-252 toor: Testing user facility logging
+
+remote-testapp.log created:
+
+Feb 18 18:16:01 ip-172-31-10-252 remote-testapp:
+This is a simulated remote application warning
+
+========================================
+JOURNALCTL OPERATIONS
+========================================
+
+Last 50 entries displayed successfully.
+
+Kernel error example:
+Feb 18 17:55:12 kernel: EXT4-fs error (device nvme0n1p1)
+
+Security test log:
+Feb 18 18:25:42 ip-172-31-10-252 security:
+Failed login attempt detected
+
+Journal disk usage:
+Archived and active journals take up 48.0M in the file system.
+
+Vacuum old logs:
+Deleted archived journal files older than 2 days.
+
+========================================
+CUSTOM LOG GENERATION
+========================================
+
+application.log  9.5K
+access.log       9.3K
+error.log        1.1K
+
+Logs generated successfully.
+
+========================================
+LOGROTATE DEBUG TEST
+========================================
+
+reading config file /etc/logrotate.d/testapp
+rotating pattern: /var/log/testapp/*.log  after 1 days (7 rotations)
+No errors found.
+
+========================================
+FORCED ROTATION RESULTS
+========================================
+
+application.log
+application.log.1.gz
+access.log
+access.log.1.gz
+error.log
+error.log.1.gz
+
+Rotation successful.
+
+========================================
+ADVANCED ROTATION
+========================================
+
+Access log rotated at Tue Feb 18 19:02:41 UTC 2026
+
+Advanced configuration working.
+
+========================================
+MONITOR ROTATION SCRIPT
+========================================
+
+=== Log Rotation Status ===
+Current log files:
+application.log
+application.log.1.gz
+access.log
+access.log.1.gz
+error.log
+error.log.1.gz
+
+=== Logrotate Status ===
+"/var/log/testapp/application.log" 2026-2-18
+"/var/log/testapp/access.log" 2026-2-18
+"/var/log/testapp/error.log" 2026-2-18
+
+========================================
+LOG ANALYSIS SCRIPT SUMMARY
+========================================
+
+1. Rsyslog Status:
+Active: active (running)
+
+2. Journal Disk Usage:
+Archived and active journals take up 36.0M
+
+3. Recent System Errors:
+Feb 18 18:50:22 kernel: Minor filesystem warning
+
+4. Log File Sizes:
+ /var/log/syslog      2.1M
+ /var/log/auth.log    1.2M
+
+5. Remote Log Status:
+/var/log/remote/localhost/remote-testapp.log 198B
+
+6. Logrotate Status:
+No errors found
+
+========================================
+FINAL VALIDATION
+========================================
+
+Final test: Local message
+Final test: Remote simulation
+
+Remote log:
+remote-final.log created successfully.
+
+Log rotation verified.
+
+Lab 14 completed successfully.
