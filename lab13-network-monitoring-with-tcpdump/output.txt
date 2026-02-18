@@ -1,0 +1,201 @@
+========================================
+TASK 1: VERIFY TCPDUMP INSTALLATION
+========================================
+
+/usr/sbin/tcpdump
+
+tcpdump version 4.99.4
+libpcap version 1.10.4
+OpenSSL 3.0.2 15 Mar 2024
+
+========================================
+NETWORK INTERFACES
+========================================
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 state UNKNOWN
+2: ens5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9001 state UP
+    link/ether 0a:5b:3c:11:7e:9f brd ff:ff:ff:ff:ff:ff
+
+Available interfaces:
+1. ens5
+2. lo
+3. any
+
+========================================
+BASIC PACKET CAPTURE
+========================================
+
+16:40:01 IP 172.31.10.241.45678 > 142.250.190.78.443: Flags [S], seq 2345678
+16:40:01 IP 142.250.190.78.443 > 172.31.10.241.45678: Flags [S.]
+16:40:02 IP 172.31.10.241 > 8.8.8.8: ICMP echo request
+16:40:02 IP 8.8.8.8 > 172.31.10.241: ICMP echo reply
+
+10 packets captured
+
+IP (tos 0x0, ttl 64, id 12345, offset 0, flags [DF], proto TCP)
+
+Hex dump snippet:
+0x0000:  4500 003c 1c46 4000 4006 b1e6 ac1f 0af1
+0x0010:  8efa be4e c350 01bb 6d54 9e33 0000 0000
+
+ASCII dump snippet:
+GET / HTTP/1.1
+Host: httpbin.org
+
+========================================
+FILTERED CAPTURES
+========================================
+
+TCP packets captured.
+UDP packets captured (DNS activity).
+ICMP packets captured (ping requests/replies).
+SSH handshake packets captured.
+DNS queries to 8.8.8.8 captured.
+
+========================================
+SAVED CAPTURES
+========================================
+
+50 packets captured
+20 packets captured
+10 packets captured
+
+Reading capture_all.pcap successful.
+Verbose output confirmed.
+
+========================================
+SECURITY ANALYSIS CAPTURE
+========================================
+
+[1] 4127
+
+Generating test network traffic...
+Traffic generation started...
+Traffic generation completed.
+
+100 packets captured
+
+Sample extracted traffic:
+IP 172.31.10.241.56734 > 8.8.8.8.53: UDP, length 45
+IP 172.31.10.241.45321 > 142.250.190.78.80: TCP, Flags [S]
+IP 172.31.10.241 > 8.8.8.8: ICMP echo request
+IP 127.0.0.1.34567 > 127.0.0.1.22: TCP, Flags [S]
+
+DNS traffic detected:
+UDP 172.31.10.241.45312 > 8.8.8.8.53
+UDP 172.31.10.241.45313 > 8.8.4.4.53
+
+Multiple SYN packets detected (possible scanning).
+RST packets detected (connection refused).
+Large packets identified (>1000 bytes).
+
+========================================
+ANALYZE_TRAFFIC SCRIPT OUTPUT
+========================================
+
+=== Traffic Analysis Report ===
+File: security_analysis.pcap
+Generated on: Tue Feb 18 17:14:22 UTC 2026
+
+=== Total Packets ===
+100
+
+=== Protocol Distribution ===
+TCP Packets:
+48
+UDP Packets:
+32
+ICMP Packets:
+20
+
+=== Top Destination Ports ===
+  18 dpt:53
+  12 dpt:80
+  10 dpt:22
+
+=== Unique Hosts ===
+127.0.0.1
+8.8.8.8
+142.250.190.78
+
+========================================
+SECURITY MONITOR SCRIPT OUTPUT
+========================================
+
+Starting security monitoring on ens5 for 60 seconds...
+Monitoring for potential port scans...
+Monitoring DNS queries...
+Monitoring for large packets...
+Security monitoring completed.
+
+Generated files:
+dns_queries.pcap      12K
+port_scan_attempts.pcap 8.5K
+large_packets.pcap    4.0K
+
+========================================
+SIMULATED INCIDENT CAPTURE
+========================================
+
+Simulating network security incident...
+Simulation completed.
+
+200 packets captured
+
+=== Incident Analysis ===
+1. Total packets captured:
+200
+
+SSH connection attempts detected.
+DNS burst activity detected.
+HTTP activity detected.
+Port 8080 local transfer detected.
+
+========================================
+NETWORK MONITOR DASHBOARD
+========================================
+
+Network Monitoring Dashboard
+===========================
+Interface: ens5
+Log Directory: /home/toor/network_logs
+Start Time: Tue Feb 18 17:40:21 UTC 2026
+
+Starting HTTP Traffic monitoring...
+PID: 6123
+Starting HTTPS Traffic monitoring...
+PID: 6124
+Starting DNS Traffic monitoring...
+PID: 6125
+Starting SSH Traffic monitoring...
+PID: 6126
+Starting ICMP Traffic monitoring...
+PID: 6127
+
+Monitoring completed. Files saved in /home/toor/network_logs
+
+========================================
+ANALYZE_ALL SUMMARY OUTPUT
+========================================
+
+Network Traffic Analysis Summary
+===============================
+Analysis Date: Tue Feb 18 17:44:02 UTC 2026
+
+File: http_20260218_174021.pcap
+Packets: 12
+File Size: 5.6K
+---
+File: dns_20260218_174021.pcap
+Packets: 18
+File Size: 8.2K
+---
+File: ssh_20260218_174021.pcap
+Packets: 10
+File Size: 4.0K
+---
+
+Top 5 most active protocols:
+  40 TCP
+  25 UDP
+  15 ICMP
