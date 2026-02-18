@@ -1,0 +1,216 @@
+------------------------------------------------------------
+Systemd Version
+------------------------------------------------------------
+
+systemd 255 (255.4-1ubuntu8)
++PAM +AUDIT +SELINUX +APPARMOR +IMA +SMACK +SECCOMP +GCRYPT +OPENSSL
+
+------------------------------------------------------------
+System State
+------------------------------------------------------------
+
+● ip-172-31-10-178
+    State: running
+     Jobs: 0 queued
+   Failed: 0 units
+    Since: Tue 2026-02-18 08:50:22 UTC; 3h 12min ago
+
+------------------------------------------------------------
+Running Services (Partial)
+------------------------------------------------------------
+
+UNIT                         LOAD   ACTIVE SUB     DESCRIPTION
+amazon-ssm-agent.service     loaded active running Amazon SSM Agent
+cron.service                 loaded active running Regular background program processing daemon
+ssh.service                  loaded active running OpenBSD Secure Shell server
+systemd-journald.service     loaded active running Journal Service
+
+------------------------------------------------------------
+Service Unit Files (Partial)
+------------------------------------------------------------
+
+UNIT FILE                     STATE
+cron.service                  enabled
+ssh.service                   enabled
+systemd-journald.service      static
+amazon-ssm-agent.service      enabled
+
+------------------------------------------------------------
+SSH Status
+------------------------------------------------------------
+
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled)
+     Active: active (running)
+
+------------------------------------------------------------
+Cron Service Stopped
+------------------------------------------------------------
+
+● cron.service - Regular background program processing daemon
+     Loaded: loaded (/lib/systemd/system/cron.service; enabled)
+     Active: inactive (dead)
+
+------------------------------------------------------------
+Disable Cron
+------------------------------------------------------------
+
+Removed "/etc/systemd/system/multi-user.target.wants/cron.service".
+
+------------------------------------------------------------
+Enable Cron
+------------------------------------------------------------
+
+Created symlink /etc/systemd/system/multi-user.target.wants/cron.service → /lib/systemd/system/cron.service.
+
+------------------------------------------------------------
+Mask Cron
+------------------------------------------------------------
+
+Created symlink /etc/systemd/system/cron.service → /dev/null.
+
+Failed to start cron.service: Unit cron.service is masked.
+
+------------------------------------------------------------
+Dependencies (Partial)
+------------------------------------------------------------
+
+cron.service
+● ├─system.slice
+● └─basic.target
+   ├─sockets.target
+   └─sysinit.target
+
+------------------------------------------------------------
+Manual Script Test
+------------------------------------------------------------
+
+[1] 2112
+
+Tue Feb 18 12:05:01 UTC 2026: MyService is running - PID: 2112
+
+------------------------------------------------------------
+myservice.service (Before Start)
+------------------------------------------------------------
+
+● myservice.service - My Custom Service
+     Loaded: loaded (/etc/systemd/system/myservice.service; disabled)
+     Active: inactive (dead)
+
+------------------------------------------------------------
+myservice.service (Running)
+------------------------------------------------------------
+
+● myservice.service - My Custom Service
+     Loaded: loaded (/etc/systemd/system/myservice.service; disabled)
+     Active: active (running)
+   Main PID: 2158 (myservice.sh)
+
+Tue Feb 18 12:08:01 UTC 2026: MyService is running - PID: 2158
+Tue Feb 18 12:08:31 UTC 2026: MyService is running - PID: 2158
+
+------------------------------------------------------------
+advanced-service.service
+------------------------------------------------------------
+
+● advanced-service.service - Advanced Custom Service
+     Loaded: loaded (/etc/systemd/system/advanced-service.service; enabled)
+     Active: active (running)
+   Main PID: 2240 (advanced-servi)
+
+Starting ProductionService with interval 20 seconds
+Tue Feb 18 12:12:01 UTC 2026: ProductionService is active - Environment: Production
+
+------------------------------------------------------------
+journalctl (Partial)
+------------------------------------------------------------
+
+Feb 18 08:50:22 ip-172-31-10-178 systemd[1]: Started Journal Service.
+Feb 18 08:50:23 ip-172-31-10-178 systemd[1]: Started OpenBSD Secure Shell server.
+Feb 18 12:08:01 ip-172-31-10-178 systemd[1]: Started My Custom Service.
+
+------------------------------------------------------------
+journalctl -u myservice
+------------------------------------------------------------
+
+Feb 18 12:08:01 ip-172-31-10-178 systemd[1]: Started My Custom Service.
+Feb 18 12:08:01 ip-172-31-10-178 myservice.sh[2158]: Tue Feb 18 12:08:01 UTC 2026: MyService is running - PID: 2158
+
+------------------------------------------------------------
+journalctl JSON (Partial)
+------------------------------------------------------------
+
+{
+    "__REALTIME_TIMESTAMP": "1708251601000000",
+    "_SYSTEMD_UNIT": "myservice.service",
+    "MESSAGE": "Started My Custom Service."
+}
+
+------------------------------------------------------------
+Journal Disk Usage
+------------------------------------------------------------
+
+Archived and active journals take up 84.0M on disk.
+
+------------------------------------------------------------
+Journal Verify
+------------------------------------------------------------
+
+PASS: All journal files verified.
+
+------------------------------------------------------------
+Problem Service Failure
+------------------------------------------------------------
+
+● problem-service.service
+     Active: failed (Result: exit-code)
+   Main PID: 2432 (code=exited, status=1/FAILURE)
+
+problem-service.sh[2432]: Starting problematic service
+systemd[1]: problem-service.service: Main process exited, code=exited, status=1/FAILURE
+
+------------------------------------------------------------
+Problem Service Fixed
+------------------------------------------------------------
+
+● problem-service.service
+     Active: active (running)
+
+Tue Feb 18 12:30:01 UTC 2026: Service running normally
+
+------------------------------------------------------------
+Dedicated Service User
+------------------------------------------------------------
+
+uid=998(myservice-user) gid=998(myservice-user) groups=998(myservice-user)
+
+------------------------------------------------------------
+myservice Running as Non-Root
+------------------------------------------------------------
+
+USER              PID CMD
+myservice-user   2614 /bin/bash /opt/myapp/myservice.sh
+
+------------------------------------------------------------
+Final Verification
+------------------------------------------------------------
+
+myservice.service          enabled
+advanced-service.service   enabled
+problem-service.service    enabled
+
+● myservice.service - My Custom Service
+     Active: active (running)
+
+● advanced-service.service - Advanced Custom Service
+     Active: active (running)
+
+● problem-service.service - Problem Service for Troubleshooting
+     Active: active (running)
+
+enabled
+enabled
+
+=== Lab 8 Completion Verification ===
+
+2
