@@ -2,15 +2,6 @@
 
 ---
 
-## 🖥 Environment
-
-- OS: Ubuntu 24.04.1 LTS (Cloud Lab Environment)
-- User: toor
-- Shell: Bash
-- Host: ip-172-31-10-252
-
----
-
 ## 🎯 Objectives
 
 By the end of this lab, I was able to:
@@ -35,6 +26,15 @@ Before performing this lab:
 - Familiarity with file permissions and ownership
 - Basic shell scripting knowledge
 - Access to a Linux system with sudo privileges
+
+---
+
+## 🖥 Environment
+
+- OS: Ubuntu 24.04.1 LTS (Cloud Lab Environment)
+- User: toor
+- Shell: Bash
+- Host: ip-172-31-10-252
 
 ---
 
