@@ -1,0 +1,127 @@
+=============================
+Lab 9 – Networking Basics & Tools
+Collected Output Log
+=============================
+
+
+Command 'ifconfig' not found
+
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 172.31.10.178  netmask 255.255.240.0  broadcast 172.31.15.255
+        inet6 fe80::f816:3eff:fe2b:7c1a  prefixlen 64  scopeid 0x20<link>
+        ether fa:16:3e:2b:7c:1a  txqueuelen 1000
+        RX packets 41234  bytes 56473892 (56.4 MB)
+        TX packets 29567  bytes 34123901 (34.1 MB)
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+
+
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9001 state UP
+    inet 172.31.10.178/20 brd 172.31.15.255 scope global eth0
+
+default via 172.31.0.1 dev eth0 proto dhcp src 172.31.10.178
+172.31.0.0/20 dev eth0 proto kernel scope link src 172.31.10.178
+
+
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+tcp        0      0 127.0.0.1:25            0.0.0.0:*               LISTEN
+udp        0      0 127.0.0.53:53           0.0.0.0:*
+
+
+State  Recv-Q Send-Q Local Address:Port
+LISTEN 0      128    0.0.0.0:22
+LISTEN 0      100    127.0.0.1:25
+UNCONN 0      0      127.0.0.53:53
+
+
+=== Network Monitoring Report ===
+Generated on: Tue Feb 18 11:24:52 UTC 2026
+
+--- Active Network Interfaces ---
+lo
+eth0
+
+--- IP Address Configuration ---
+172.31.10.178/20 eth0
+127.0.0.1/8 lo
+
+--- Listening Services ---
+TCP Services:
+LISTEN 0 128 0.0.0.0:22
+LISTEN 0 100 127.0.0.1:25
+
+UDP Services:
+UNCONN 0 0 127.0.0.53:53
+
+--- Network Statistics ---
+Total: 85
+TCP: 12
+UDP: 4
+
+--- Routing Table ---
+default via 172.31.0.1 dev eth0
+172.31.0.0/20 dev eth0
+
+
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9001
+    inet 172.31.10.178/20 brd 172.31.15.255 scope global eth0
+    inet 192.168.100.10/24 scope global secondary eth0
+
+
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9001
+    inet 172.31.10.178/20 brd 172.31.15.255 scope global eth0
+
+
+PING 127.0.0.1 (127.0.0.1)
+4 packets transmitted, 4 received, 0% packet loss
+
+PING 172.31.0.1 (172.31.0.1)
+4 packets transmitted, 4 received, 0% packet loss
+
+PING 8.8.8.8 (8.8.8.8)
+4 packets transmitted, 4 received, 0% packet loss
+
+PING google.com (142.250.190.14)
+4 packets transmitted, 4 received, 0% packet loss
+
+
+traceroute to google.com (142.250.190.14), 30 hops max
+ 1  172.31.0.1
+ 2  100.64.1.1
+ 3  52.93.23.41
+ 4  72.14.234.102
+ 5  142.250.190.14
+
+
+Connection to localhost 22 port [tcp/ssh] succeeded!
+
+
+=== Network Connectivity Test ===
+✓ Localhost connectivity: OK
+✓ Gateway connectivity: OK
+✓ DNS resolution: OK
+✓ External connectivity: OK
+
+
+=== Complete Network Diagnostic Report ===
+Hostname: ip-172-31-10-178
+User: toor
+
+--- IP Configuration ---
+inet 172.31.10.178/20 brd 172.31.15.255 scope global eth0
+inet 127.0.0.1/8 scope host lo
+
+--- Routing Information ---
+Default gateway: 172.31.0.1
+
+--- Connectivity Tests ---
+Localhost: OK
+Gateway (172.31.0.1): OK
+External (8.8.8.8): OK
+DNS Resolution: OK
+
+=== Diagnostic Complete ===
