@@ -1,0 +1,274 @@
+==============================
+Lab 02 – Shell Scripting Basics
+Execution Output Log
+==============================
+
+
+=====================================
+Task 1 – Script Fundamentals
+=====================================
+
+Directory Creation:
+-------------------
+/home/toor/shell_scripts
+
+
+hello_world.sh Output:
+----------------------
+Hello, World!
+Welcome to Shell Scripting!
+
+
+variables_demo.sh Output:
+--------------------------
+=== Personal Information ===
+Name: John Doe
+Age: 25
+Current User: toor
+Home Directory: /home/toor
+Current Date: Tue Feb 18 10:02:31 UTC 2026
+
+Please enter your favorite color:
+Blue
+Your favorite color is: Blue
+
+
+conditions_demo.sh Output – Test Case 1:
+----------------------------------------
+=== File and Directory Checker ===
+Enter a file or directory path:
+/etc/passwd
+Path exists!
+It's a regular file.
+File size: 2873 bytes
+File is readable.
+
+
+conditions_demo.sh Output – Test Case 2:
+----------------------------------------
+=== File and Directory Checker ===
+Enter a file or directory path:
+/home
+Path exists!
+It's a directory.
+Number of items in directory: 1
+
+
+conditions_demo.sh Output – Test Case 3:
+----------------------------------------
+=== File and Directory Checker ===
+Enter a file or directory path:
+/home/toor/new_test_dir
+Path does not exist!
+Would you like to create it? (y/n)
+y
+Creating directory...
+Directory created successfully!
+
+
+number_checker.sh Output – Test 1:
+-----------------------------------
+=== Number Analysis Tool ===
+Enter a number:
+15
+Analyzing number: 15
+Number is positive
+Number is odd
+Number is between 11 and 100 (inclusive)
+Number is positive and divisible by 5
+
+
+number_checker.sh Output – Test 2:
+-----------------------------------
+=== Number Analysis Tool ===
+Enter a number:
+-8
+Analyzing number: -8
+Number is negative
+Number is even
+Number is outside the range 1-100
+
+
+number_checker.sh Output – Test 3:
+-----------------------------------
+=== Number Analysis Tool ===
+Enter a number:
+abc
+Error: Please enter a valid integer!
+
+
+=====================================
+Task 2 – Loop Implementation
+=====================================
+
+for_loop_demo.sh Output:
+-------------------------
+=== Basic For Loop Examples ===
+Counting from 1 to 5:
+Count: 1
+Count: 2
+Count: 3
+Count: 4
+Count: 5
+
+Favorite programming languages:
+- Python
+- Bash
+- JavaScript
+- Java
+- C++
+
+Files in current directory:
+Script file: backup_automation.sh
+Script file: conditions_demo.sh
+Script file: for_loop_demo.sh
+Script file: hello_world.sh
+Script file: number_checker.sh
+Script file: variables_demo.sh
+
+Even numbers from 2 to 10:
+Even number: 2
+Even number: 4
+Even number: 6
+Even number: 8
+Even number: 10
+
+
+while_loop_demo.sh Output:
+---------------------------
+=== While Loop Examples ===
+Countdown from 5:
+T-minus 5
+T-minus 4
+T-minus 3
+T-minus 2
+T-minus 1
+Blast off!
+
+Creating a sample file...
+Reading file line by line:
+Fruit: Apple
+Fruit: Banana
+Fruit: Cherry
+Fruit: Date
+Fruit: Elderberry
+
+=== Simple Menu System ===
+Please select an option:
+1. Show current date
+2. Show current user
+3. Show current directory
+4. Exit
+Enter your choice (1-4):
+1
+Current date: Tue Feb 18 10:15:42 UTC 2026
+
+2
+Current user: toor
+
+3
+Current directory: /home/toor/shell_scripts
+
+4
+Goodbye!
+
+
+nested_loops.sh Output:
+------------------------
+=== Nested Loop Examples ===
+Multiplication Table (1-5):
+ | 1 2 3 4 5
+---|---------------
+ 1 |  1  2  3  4  5
+ 2 |  2  4  6  8 10
+ 3 |  3  6  9 12 15
+ 4 |  4  8 12 16 20
+ 5 |  5 10 15 20 25
+
+Number Pattern:
+1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5
+
+Creating test directories and files...
+Directory structure created:
+Directory: test_docs
+  File: file1.txt
+  File: file2.txt
+  File: file3.txt
+Directory: test_images
+  File: file1.txt
+  File: file2.txt
+  File: file3.txt
+Directory: test_scripts
+  File: file1.txt
+  File: file2.txt
+  File: file3.txt
+
+
+=====================================
+Task 3 – Automation Projects
+=====================================
+
+system_info.sh Output:
+-----------------------
+=== System Information Report Generator ===
+Generating report: system_report_20260218_102305.txt
+Report generated successfully: system_report_20260218_102305.txt
+Use 'cat system_report_20260218_102305.txt' to view the complete report
+
+
+file_manager.sh Output:
+------------------------
+=== File Management Automation ===
+2026-02-18 10:32:14 - Starting file management operations
+Creating sample files...
+2026-02-18 10:32:14 - Sample files created
+
+Organizing files...
+2026-02-18 10:32:14 - Starting file organization
+2026-02-18 10:32:14 - Moved document_1.txt to documents/
+2026-02-18 10:32:14 - Moved image_1.jpg to images/
+2026-02-18 10:32:14 - Moved script_1.sh to scripts/
+2026-02-18 10:32:14 - Moved archive_1.zip to archives/
+2026-02-18 10:32:14 - Moved logfile_1.log to temp/
+
+Performing cleanup check...
+2026-02-18 10:32:14 - Starting cleanup of old files
+2026-02-18 10:32:14 - Found old file: ./temp/old_file_2.log
+2026-02-18 10:32:14 - Found old file: ./temp/very_old_file.tmp
+2026-02-18 10:32:14 - Old file cleanup completed (files listed but not deleted for safety)
+
+Generating report...
+2026-02-18 10:32:14 - Report generated: file_report_20260218_103214.txt
+
+2026-02-18 10:32:14 - File management operations completed
+
+
+backup_automation.sh Output:
+-----------------------------
+=== Backup Automation Script ===
+2026-02-18 10:41:22 - Backup automation started
+2026-02-18 10:41:22 - Created backup base directory: /home/toor/backups
+2026-02-18 10:41:22 - Created backup directory: /home/toor/backups/backup_20260218_104122
+2026-02-18 10:41:22 - Starting backup process
+2026-02-18 10:41:22 - Source: /home/toor/shell_scripts
+2026-02-18 10:41:22 - Destination: /home/toor/backups/backup_20260218_104122
+2026-02-18 10:41:22 - Backup completed successfully
+2026-02-18 10:41:22 - Backup size: 88K
+2026-02-18 10:41:22 - Verifying backup integrity
+2026-02-18 10:41:22 - Source files: 12
+2026-02-18 10:41:22 - Backed up files: 12
+2026-02-18 10:41:22 - Backup verification: PASSED
+2026-02-18 10:41:22 - Checking for old backups
+2026-02-18 10:41:22 - Current backup count: 1
+2026-02-18 10:41:22 - No cleanup needed
+2026-02-18 10:41:22 - Backup report generated: /home/toor/backups/backup_report_20260218_104122.txt
+
+Backup completed successfully!
+Backup location: /home/toor/backups/backup_20260218_104122
+Log file: /home/toor/backups/backup.log
+
+2026-02-18 10:41:22 - Backup automation completed
