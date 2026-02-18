@@ -7,9 +7,9 @@
 ### ❌ Problem
 While attempting to access or modify a file, the system displays:
 
-```
+`
 Permission denied
-```
+`
 
 ### 🔍 Possible Causes
 - File permissions do not allow read/write access.
@@ -45,9 +45,9 @@ sudo command
 ### ❌ Problem
 System displays:
 
-```
+`
 No such file or directory
-```
+`
 
 ### 🔍 Possible Causes
 - Incorrect path
@@ -101,9 +101,9 @@ User is inside Insert Mode or unaware of vim command modes.
 
 ### ❌ Problem
 Command:
-```
+`
 cd directory_name
-```
+`
 returns error.
 
 ### 🔍 Possible Causes
@@ -131,9 +131,9 @@ cd ~/lab_practice/documents
 
 ### ❌ Problem
 Running:
-```
+`
 rm directory_name
-```
+`
 returns error:
 ```
 Is a directory
@@ -159,9 +159,9 @@ rm -ri directory_name
 ## 📄 Issue 6: Copying Directory Fails
 
 ### ❌ Problem
-```
+`
 cp directory_name backup_directory
-```
+`
 returns error.
 
 ### 🔍 Cause
@@ -204,9 +204,9 @@ For vim:
 
 ### ❌ Problem
 Running:
-```
+`
 diff file1 file2
-```
+`
 returns no output.
 
 ### 🔍 Cause
