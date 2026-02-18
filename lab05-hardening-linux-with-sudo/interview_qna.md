@@ -1,5 +1,4 @@
-# 🎯 Interview Questions & Answers  
-## Lab 05 – Hardening Linux with sudo
+# 🎤 Interview Questions & Answers - Lab 05: Hardening Linux with sudo
 
 ---
 
