@@ -1,8 +1,5 @@
 # 🧪 Lab 03 – User and Group Management
 
-## 📂 Category
-Al Razzaq – Linux Security & Administration Specialist
-
 ---
 
 # 🎯 Objective
