@@ -1,5 +1,4 @@
-# 🎯 Interview Questions & Answers  
-## Lab 03 – User and Group Management
+# 🎤 Interview Questions & Answers - Lab 03: User and Group Management
 
 ---
 
