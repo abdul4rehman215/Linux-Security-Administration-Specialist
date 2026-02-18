@@ -1,0 +1,23 @@
+SELinux and AppArmor Security Policy Report
+
+System Information:
+• Hostname: $(hostname)
+• OS Version: $(cat /etc/os-release | grep PRETTY_NAME)
+• SELinux Status: $(getenforce)
+• AppArmor Status: $(sudo aa-status | head -1)
+
+SELinux Configuration:
+• Current Mode: $(getenforce)
+• Policy Type: $(sestatus | grep "Policy from config file")
+• Active Booleans: $(getsebool -a | grep "on$" | wc -l)
+
+AppArmor Configuration:
+• Loaded Profiles: $(sudo aa-status | grep "profiles are loaded" | cut -d' ' -f1)
+• Enforce Mode: $(sudo aa-status | grep "profiles are in enforce mode" | cut -d' ' -f1)
+• Complain Mode: $(sudo aa-status | grep "profiles are in complain mode" | cut -d' ' -f1)
+
+Recommendations:
+1. Keep SELinux in enforcing mode for production systems
+2. Regularly review and update AppArmor profiles
+3. Monitor security logs for policy violations
+4. Test applications thoroughly after policy changes
