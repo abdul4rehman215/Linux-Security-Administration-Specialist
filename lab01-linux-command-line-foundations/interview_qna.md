@@ -1,5 +1,4 @@
-# 🎤 Interview Questions & Answers  
-## Lab 01 – Linux Command Line Foundations
+# 🎤 Interview Q&A - Lab 01: Linux Command Line Foundations
 
 ---
 
