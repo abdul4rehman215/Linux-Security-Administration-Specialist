@@ -5,9 +5,9 @@
 ## 🔐 Issue 1: Permission Denied When Executing Script
 
 ### ❌ Problem
-```
+`
 bash: ./script_name.sh: Permission denied
-```
+`
 
 ### 🔍 Cause
 The script does not have execute permission.
@@ -30,9 +30,9 @@ ls -l script_name.sh
 ## 📂 Issue 2: Command Not Found
 
 ### ❌ Problem
-```
+`
 command: not found
-```
+`
 
 ### 🔍 Possible Causes
 - Command not installed
@@ -134,9 +134,9 @@ Validate loop exit condition carefully.
 ## 📄 Issue 6: File or Directory Not Found
 
 ### ❌ Problem
-```
+`
 No such file or directory
-```
+`
 
 ### 🔍 Cause
 Incorrect path or working directory.
