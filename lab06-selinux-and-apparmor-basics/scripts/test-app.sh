@@ -22,7 +22,8 @@ echo "Test application finished."
  /home/*/ r,
 }
 
-Added:
+# Added:
+
 cat /etc/passwd
 Updated script:
 #!/bin/bash
