@@ -1,0 +1,10 @@
+[Definition]
+
+loglevel = INFO
+logtarget = /var/log/fail2ban.log
+socket = /var/run/fail2ban/fail2ban.sock
+
+# Performance Optimization
+dbpurgeage = 86400
+dbmaxmatches = 10
+backend = systemd
