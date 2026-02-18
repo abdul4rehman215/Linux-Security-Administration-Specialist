@@ -1,0 +1,86 @@
+# ===============================
+# Global Hardening Defaults
+# ===============================
+
+Defaults env_reset
+Defaults mail_badpass
+Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Defaults use_pty
+Defaults log_input, log_output
+Defaults iolog_dir=/var/log/sudo-io
+Defaults logfile=/var/log/sudo.log
+Defaults syslog=auth
+Defaults syslog_goodpri=info
+Defaults syslog_badpri=alert
+Defaults timestamp_timeout=15
+Defaults passwd_tries=3
+Defaults passwd_timeout=5
+
+# ===============================
+# Web Operators
+# ===============================
+
+%web-operators ALL=(ALL) /usr/sbin/service apache2 *, /usr/sbin/service nginx *, \
+/usr/bin/systemctl start apache2, /usr/bin/systemctl stop apache2, \
+/usr/bin/systemctl restart apache2, /usr/bin/systemctl reload apache2, \
+/usr/bin/systemctl start nginx, /usr/bin/systemctl stop nginx, \
+/usr/bin/systemctl restart nginx, /usr/bin/systemctl reload nginx, \
+/bin/tail /var/log/apache2/*, /bin/tail /var/log/nginx/*
+
+webadmin ALL=(ALL) /usr/sbin/service apache2 *, /usr/sbin/service nginx *
+
+# ===============================
+# Database Operators
+# ===============================
+
+%db-operators ALL=(ALL) /usr/bin/systemctl start mysql, \
+/usr/bin/systemctl stop mysql, \
+/usr/bin/systemctl restart mysql, \
+/usr/bin/systemctl status mysql, \
+/usr/bin/systemctl start postgresql, \
+/usr/bin/systemctl stop postgresql, \
+/usr/bin/systemctl restart postgresql, \
+/bin/tail /var/log/mysql/*, \
+/bin/tail /var/log/postgresql/*
+
+dbadmin ALL=(ALL) /usr/bin/systemctl start mysql, \
+/usr/bin/systemctl stop mysql, \
+/usr/bin/systemctl restart mysql, \
+/usr/bin/systemctl status mysql
+
+# ===============================
+# Development Team
+# ===============================
+
+%dev-team ALL=(ALL) /usr/bin/apt install *, \
+/usr/bin/apt update, \
+/usr/bin/apt upgrade, \
+/usr/bin/systemctl restart development-*, \
+/bin/mkdir /opt/development/*, \
+/bin/chown developer:dev-team /opt/development/*
+
+developer ALL=(ALL) /usr/bin/apt install *, \
+/usr/bin/apt update, \
+/usr/bin/systemctl restart development-*
+
+developer ALL=(ALL) !/usr/bin/apt remove *, \
+!/usr/bin/apt purge *, \
+!/bin/rm -rf /*
+
+# ===============================
+# Audit Team
+# ===============================
+
+%audit-team ALL=(ALL) /bin/cat /var/log/*, \
+/bin/tail /var/log/*, \
+/bin/head /var/log/*, \
+/usr/bin/find /var/log/*, \
+/bin/ls /var/log/*, \
+/usr/bin/systemctl status *, \
+/usr/bin/ps aux, \
+/usr/bin/netstat *, \
+/usr/bin/ss *
+
+auditor ALL=(ALL) /bin/cat /var/log/*, \
+/bin/tail /var/log/*, \
+/usr/bin/systemctl status *
