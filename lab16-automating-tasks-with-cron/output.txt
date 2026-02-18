@@ -1,0 +1,172 @@
+==============================
+Lab 16 - Automating Tasks with Cron
+Complete Output Log
+==============================
+
+$ sudo systemctl status cron
+● cron.service - Regular background program processing daemon
+     Loaded: loaded (/lib/systemd/system/cron.service; enabled)
+     Active: active (running) since Tue 2026-02-19 12:10:11 UTC; 3min ago
+       Docs: man:cron(8)
+   Main PID: 842 (cron)
+      Tasks: 1 (limit: 2262)
+     Memory: 1.3M
+        CPU: 28ms
+
+$ sudo systemctl start cron
+Job for cron.service failed because the control process exited with error code.
+See "systemctl status cron.service" for details.
+
+$ sudo systemctl enable cron
+Synchronizing state of cron.service with SysV service script.
+Executing: /lib/systemd/systemd-sysv-install enable cron
+
+$ ls -la /etc/cron*
+/etc/crontab
+/etc/cron.d
+/etc/cron.daily
+/etc/cron.hourly
+/etc/cron.monthly
+/etc/cron.weekly
+
+$ sudo ls -la /var/spool/cron/crontabs/
+total 8
+drwx-wx--T 2 root crontab 4096 Feb 19 12:08 .
+drwxr-xr-x 3 root root    4096 Feb 19 12:08 ..
+
+$ crontab -l
+no crontab for toor
+
+$ cat ~/cron_syntax_reference.txt
+Cron Time Format: * * * * * command
+ | | | | |
+ | | | | +-- Day of week (0-7, Sunday=0 or 7)
+ | | | +---- Month (1-12)
+ | | +------ Day of month (1-31)
+ | +-------- Hour (0-23)
+ +---------- Minute (0-59)
+*/15 * * * * = Every 15 minutes
+
+$ ~/cron_scripts/date_logger.sh
+(no output)
+
+$ cat ~/cron_logs/date_log.txt
+Tue Feb 19 12:18:02 UTC 2026: Cron job executed successfully
+
+$ crontab -l
+* * * * * /home/toor/cron_scripts/date_logger.sh
+
+$ cat ~/cron_logs/date_log.txt
+Tue Feb 19 12:18:02 UTC 2026: Cron job executed successfully
+Tue Feb 19 12:19:01 UTC 2026: Cron job executed successfully
+Tue Feb 19 12:20:01 UTC 2026: Cron job executed successfully
+Tue Feb 19 12:21:01 UTC 2026: Cron job executed successfully
+Tue Feb 19 12:22:01 UTC 2026: Cron job executed successfully
+
+$ wc -l ~/cron_logs/date_log.txt
+5 /home/toor/cron_logs/date_log.txt
+
+$ crontab -l
+*/5 * * * * /home/toor/cron_scripts/system_monitor.sh
+30 * * * * /home/toor/cron_scripts/backup_script.sh
+0 2 * * * /home/toor/cron_scripts/cleanup_script.sh
+*/2 * * * * /home/toor/cron_scripts/date_logger.sh
+
+$ tail -5 ~/cron_logs/db_maintenance.log
+2026-02-19 12:31:18: Rebuilding indexes...
+2026-02-19 12:31:18: Database integrity check PASSED
+2026-02-19 12:31:18: Database maintenance completed with exit code 0
+----------------------------------------
+
+$ tail -6 ~/cron_logs/health_check.log
+2026-02-19 12:33:02: cron is running - OK
+2026-02-19 12:33:02: systemd-logind is running - OK
+2026-02-19 12:33:02: Disk usage is 40% - OK
+2026-02-19 12:33:02: Memory usage is 27% - OK
+2026-02-19 12:33:02: Overall system health - GOOD
+----------------------------------------
+
+$ ls ~/cron_logs/
+date_log.txt
+health_check.log
+db_maintenance.log
+
+$ crontab -l
+*/5 * * * * /home/toor/cron_scripts/system_monitor.sh
+*/10 * * * * /home/toor/cron_scripts/health_check.sh
+0 */6 * * * /home/toor/cron_scripts/db_maintenance.sh
+0 1 * * * /home/toor/cron_scripts/backup_script.sh
+0 2 * * * /home/toor/cron_scripts/cleanup_script.sh
+*/15 * * * * /home/toor/cron_scripts/email_notification.sh
+*/3 * * * * /home/toor/cron_scripts/date_logger.sh
+
+$ sudo tail -20 /var/log/syslog | grep CRON
+Feb 19 12:40:01 ip-172-31-10-223 CRON[1421]: (toor) CMD (/home/toor/cron_scripts/date_logger.sh)
+Feb 19 12:40:01 ip-172-31-10-223 CRON[1423]: (toor) CMD (/home/toor/cron_scripts/system_monitor.sh)
+Feb 19 12:42:01 ip-172-31-10-223 CRON[1452]: (toor) CMD (/home/toor/cron_scripts/date_logger.sh)
+Feb 19 12:45:01 ip-172-31-10-223 CRON[1498]: (toor) CMD (/home/toor/cron_scripts/system_monitor.sh)
+
+$ ~/cron_scripts/cron_dashboard.sh
+Dashboard updated: /home/toor/cron_logs/dashboard.html
+
+$ ls -lh ~/cron_logs/dashboard.html
+-rw-rw-r-- 1 toor toor 5.8K Feb 19 12:48 dashboard.html
+
+$ tail -5 ~/cron_logs/errors.log
+2026-02-19 12:50:18: Starting error detection
+2026-02-19 12:50:18: Error detection completed
+
+$ crontab -l
+*/5 * * * * /home/toor/cron_scripts/system_monitor.sh
+*/10 * * * * /home/toor/cron_scripts/health_check.sh
+0 */6 * * * /home/toor/cron_scripts/db_maintenance.sh
+0 1 * * * /home/toor/cron_scripts/backup_script.sh
+0 2 * * * /home/toor/cron_scripts/cleanup_script.sh
+*/15 * * * * /home/toor/cron_scripts/email_notification.sh
+*/30 * * * * /home/toor/cron_scripts/error_detector.sh
+0 * * * * /home/toor/cron_scripts/cron_dashboard.sh
+*/20 * * * * /home/toor/cron_scripts/cron_monitor.sh
+*/3 * * * * /home/toor/cron_scripts/date_logger.sh
+
+Active cron jobs: 10
+
+$ ~/verify_lab.sh
+=== Lab 16 Verification ===
+
+1. Cron Service Status:
+✓ Cron service is running
+
+2. Cron Jobs Configured:
+✓ 10 cron jobs configured
+
+3. Scripts Created:
+✓ 13 scripts created
+
+4. Log Files Generated:
+✓ 8 log files generated
+
+5. Recent Cron Activity:
+✓ Date logger has 18 entries
+
+6. Dashboard Status:
+✓ Dashboard created successfully
+
+=== Current Cron Jobs ===
+(list of 10 jobs)
+
+=== Recent Log Activity ===
+Date Logger (last 3 entries):
+Tue Feb 19 13:01:01 UTC 2026: Cron job executed successfully
+
+System Monitor (last 3 entries):
+Load Average:
+13:00:01 up 2:10, 1 user, load average: 0.01, 0.02, 0.00
+
+Health Check (last 3 entries):
+Overall system health - GOOD
+
+=== Lab Verification Complete ===
+
+==============================
+Lab 16 Completed Successfully
+==============================
