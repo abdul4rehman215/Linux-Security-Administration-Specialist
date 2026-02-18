@@ -1,0 +1,97 @@
+===============================
+APPARMOR FULL LAB EXECUTION OUTPUT
+Environment: Ubuntu 24.04.1 LTS
+===============================
+
+toor@ip-172-31-10-233:~$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04.1 LTS"
+
+--------------------------------------------------
+Installing AppArmor Utilities
+--------------------------------------------------
+
+toor@ip-172-31-10-233:~$ sudo apt update
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Reading package lists... Done
+
+toor@ip-172-31-10-233:~$ sudo apt install apparmor-utils apparmor-profiles -y
+Reading package lists... Done
+Building dependency tree... Done
+The following NEW packages will be installed:
+  apparmor-profiles apparmor-utils
+Setting up apparmor-utils (3.0.4-2ubuntu1) ...
+Setting up apparmor-profiles (3.0.4-2ubuntu1) ...
+
+--------------------------------------------------
+Checking AppArmor Status
+--------------------------------------------------
+
+toor@ip-172-31-10-233:~$ sudo apparmor_status
+apparmor module is loaded.
+32 profiles are loaded.
+30 profiles are in enforce mode.
+2 profiles are in complain mode.
+0 profiles are in kill mode.
+
+--------------------------------------------------
+Switching ping Profile Modes
+--------------------------------------------------
+
+toor@ip-172-31-10-233:~$ sudo aa-complain /usr/bin/ping
+Setting /usr/bin/ping to complain mode.
+
+toor@ip-172-31-10-233:~$ sudo aa-enforce /usr/bin/ping
+Setting /usr/bin/ping to enforce mode.
+
+--------------------------------------------------
+Running Test Application
+--------------------------------------------------
+
+toor@ip-172-31-10-233:~$ /usr/local/bin/test-app.sh
+Test application starting...
+toor
+Tue Feb 18 11:26:12 UTC 2026
+toor
+webadmin
+dbadmin
+developer
+auditor
+Attempting restricted access...
+cat: /etc/shadow: Permission denied
+Test application finished.
+
+--------------------------------------------------
+Checking AppArmor Denial Logs
+--------------------------------------------------
+
+toor@ip-172-31-10-233:~$ sudo dmesg | grep -i apparmor | tail -5
+audit: type=1400 audit(1708256935.332:112): apparmor="DENIED" operation="open" profile="/usr/local/bin/test-app.sh" name="/etc/shadow" pid=2489 comm="cat" requested_mask="r" denied_mask="r"
+
+toor@ip-172-31-10-233:~$ sudo journalctl | grep -i apparmor | tail -5
+Feb 18 11:26:12 ip-172-31-10-233 kernel: audit: apparmor="DENIED" operation="open" profile="/usr/local/bin/test-app.sh" name="/etc/shadow"
+
+--------------------------------------------------
+Testing Additional Denial
+--------------------------------------------------
+
+toor@ip-172-31-10-233:~$ /usr/local/bin/test-app.sh
+Attempting restricted access...
+cat: /etc/shadow: Permission denied
+cat: /etc/passwd: Permission denied
+
+toor@ip-172-31-10-233:~$ sudo dmesg | grep -i apparmor | tail -5
+audit: type=1400 audit(1708256935.332:112): apparmor="DENIED" operation="open" profile="/usr/local/bin/test-app.sh" name="/etc/passwd"
+
+--------------------------------------------------
+Performance Test
+--------------------------------------------------
+
+toor@ip-172-31-10-233:~$ time for i in {1..1000}; do ls /etc/ > /dev/null 2>&1; done
+
+real    0m0.451s
+user    0m0.298s
+sys     0m0.150s
+
+===============================
+END OF APPARMOR OUTPUT
+===============================
