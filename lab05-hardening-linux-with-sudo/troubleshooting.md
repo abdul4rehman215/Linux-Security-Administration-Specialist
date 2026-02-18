@@ -6,9 +6,9 @@
 
 ## ❌ Problem
 After editing sudoers, running sudo returns:
-```
+`
 sudo: parse error in /etc/sudoers near line XX
-```
+`
 
 ## 🔎 Cause
 Incorrect syntax in sudoers configuration.
@@ -44,9 +44,9 @@ pkexec visudo
 
 ## ❌ Problem
 User receives:
-```
+`
 Sorry, user is not allowed to execute ...
-```
+`
 
 ## 🔎 Possible Causes
 
@@ -141,9 +141,9 @@ Defaults timestamp_timeout=30
 
 ## ❌ Problem
 User gets:
-```
+`
 command not found
-```
+`
 
 ## 🔎 Cause
 secure_path excludes required binary directory.
@@ -165,9 +165,9 @@ Add missing path carefully.
 Users bypass restrictions using wildcards.
 
 Example:
-```
+`
 /usr/bin/apt *
-```
+`
 
 May allow unintended subcommands.
 
@@ -267,9 +267,9 @@ sudo visudo -c
 
 ## ❌ Problem
 User accidentally given:
-```
+`
 (ALL : ALL) ALL
-```
+`
 
 ## 🔎 Risk
 
