@@ -5,9 +5,9 @@
 # 🔐 Issue 1: Permission Denied When Creating Users
 
 ## ❌ Problem
-```
+`
 useradd: Permission denied.
-```
+`
 
 ## 🔎 Cause
 User does not have administrative privileges.
@@ -81,9 +81,9 @@ sudo chown username:username /home/username
 # 🔄 Issue 4: Cannot Delete Group
 
 ## ❌ Problem
-```
+`
 groupdel: cannot remove the primary group of user
-```
+`
 
 ## 🔎 Cause
 Group is assigned as primary group to a user.
@@ -180,9 +180,9 @@ sudo chage -M 90 -m 7 -W 14 username
 # 📛 Issue 8: Cannot Remove User
 
 ## ❌ Problem
-```
+`
 userdel: user is currently logged in
-```
+`
 
 ## 🔎 Cause
 User has active session.
@@ -212,9 +212,9 @@ sudo pkill -u username
 
 ## ❌ Problem
 Commands like:
-```
+`
 sudo awk -F: '($2 == "") {print $1}' /etc/shadow
-```
+`
 Return no output.
 
 ## 🔎 Cause
@@ -252,9 +252,9 @@ sudo chmod 775 /opt/projects
 # 📊 Issue 11: Bulk Script Not Executing
 
 ## ❌ Problem
-```
+`
 Permission denied
-```
+`
 
 ## 🔎 Cause
 Script not executable.
