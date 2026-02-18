@@ -1,0 +1,203 @@
+# 🔹 INSTALLATION OUTPUT
+
+## sudo apt update
+
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Fetched 252 kB in 2s (142 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+8 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+## sudo apt install auditd audispd-plugins -y
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  auditd audispd-plugins libauparse0 libwrap0
+0 upgraded, 4 newly installed, 0 to remove and 8 not upgraded.
+Need to get 472 kB of archives.
+After this operation, 1,512 kB of additional disk space will be used.
+Fetched 472 kB in 1s (612 kB/s)
+Selecting previously unselected package libwrap0.
+Preparing to unpack ...
+Unpacking libwrap0 ...
+Unpacking libauparse0 ...
+Unpacking auditd ...
+Unpacking audispd-plugins ...
+Setting up auditd (1:3.1.2-2ubuntu1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/auditd.service → /lib/systemd/system/auditd.service.
+Setting up audispd-plugins (1:3.1.2-2ubuntu1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+
+# 🔹 SERVICE STATUS
+
+## sudo systemctl status auditd
+
+● auditd.service - Security Auditing Service
+     Loaded: loaded (/lib/systemd/system/auditd.service; enabled)
+     Active: active (running) since Tue 2026-02-19 10:41:22 UTC; 5s ago
+       Docs: man:auditd(8)
+   Main PID: 1894 (auditd)
+
+# 🔹 AUDIT STATUS
+
+## sudo auditctl -s
+
+enabled 1
+failure 1
+pid 1894
+rate_limit 0
+backlog_limit 8192
+lost 0
+backlog 0
+
+## sudo auditctl -l
+
+No rules
+
+# 🔹 CONFIGURATION FILE PREVIEW
+
+## sudo cat /etc/audit/auditd.conf | head -15
+
+log_file = /var/log/audit/audit.log
+log_group = adm
+log_format = RAW
+flush = INCREMENTAL_ASYNC
+freq = 50
+max_log_file = 8
+num_logs = 5
+priority_boost = 4
+
+# 🔹 RULES LOADED
+
+## sudo augenrules --load
+
+/etc/audit/rules.d/custom-security.rules: loaded
+
+## sudo auditctl -l
+
+-w /etc/passwd -p wa -k passwd_changes
+-w /etc/group -p wa -k group_changes
+-w /etc/shadow -p wa -k shadow_changes
+-w /etc/sudoers -p wa -k sudoers_changes
+-w /etc/ssh/sshd_config -p wa -k ssh_config_changes
+-w /var/log/lastlog -p wa -k login_events
+
+-e 2
+
+# 🔹 AFTER REBOOT – RULE COUNT
+
+38
+
+# 🔹 AFTER FULL RULE EXPANSION
+
+Total audit rules loaded: 72
+
+# 🔹 TEST EVENTS
+
+## Passwd Change
+
+type=SYSCALL msg=audit(1708339201.321:112): arch=c000003e syscall=2 success=yes exit=3
+type=PATH msg=audit(1708339201.321:112): item=0 name="/etc/passwd"
+type=PROCTITLE msg=audit(1708339201.321:112): proctitle=75736572616464
+
+## SSH Config Change
+
+type=PATH msg=audit(1708339254.771:130): item=0 name="/etc/ssh/sshd_config"
+type=SYSCALL msg=audit(1708339254.771:130): arch=c000003e syscall=2 success=yes
+
+## Cron Change
+
+type=PATH msg=audit(1708339302.182:141): item=0 name="/etc/crontab"
+type=SYSCALL msg=audit(1708339302.182:141): success=yes
+
+# 🔹 AUREPORT OUTPUTS
+
+## sudo aureport
+
+Summary Report
+======================
+Range of time in logs: today
+Number of events: 214
+
+## sudo aureport -u
+
+User Summary Report
+======================
+root        198
+
+
+## sudo aureport -f
+
+File Summary Report
+======================
+/etc/passwd                3
+/etc/ssh/sshd_config       2
+/tmp/suspicious_file.txt   2
+
+
+🔹 SYSTEM CALL MONITORING
+
+## File Deletion
+
+type=SYSCALL msg=audit(...): syscall=unlink success=yes
+type=PATH msg=audit(...): name="/tmp/test_delete_file.txt"
+
+## Permission Change
+
+type=SYSCALL msg=audit(...): syscall=chmod success=yes
+
+## Ownership Change
+
+type=SYSCALL msg=audit(...): syscall=chown success=yes
+
+## Sudo Usage
+
+type=EXECVE msg=audit(...): exe="/usr/bin/sudo"
+
+## Process Execution
+
+type=EXECVE msg=audit(...): exe="/bin/ls"
+type=EXECVE msg=audit(...): exe="/usr/bin/sudo"
+
+# RULE MANAGER OUTPUT
+
+Total rule files: 6
+Total active rules: 72
+Watch rules: 41
+System call rules: 31
+
+Rule categories:
+ 10 cron_changes
+  8 system_binaries
+  6 process_execution
+  5 permission_changes
+  4 webserver_config
+  4 mysql_config
+
+
+# PERFORMANCE MONITOR
+
+=== Audit Performance Monitor ===
+
+Audit daemon status:
+enabled 1
+rate_limit 0
+backlog_limit 8192
+
+Disk usage for audit logs:
+12M    /var/log/audit/
+
+Memory usage by auditd:
+root      1913  0.0  0.4  65432  9120 ?  Ss  10:22   0:00 /sbin/auditd
+
+# DISK CHECK
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root        30G   12G   18G  40% /
+
+
