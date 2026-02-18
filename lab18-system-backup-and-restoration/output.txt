@@ -1,0 +1,248 @@
+==========================================
+Lab 18 – System Backup and Restoration
+Terminal Outputs
+==========================================
+
+
+==============================
+Environment Verification
+==============================
+
+NAME="Ubuntu"
+VERSION="20.04.6 LTS (Focal Fossa)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 20.04.6 LTS"
+VERSION_ID="20.04"
+HOME_URL="https://www.ubuntu.com/"
+
+/home/toor
+
+
+==============================
+rsync Version
+==============================
+
+rsync  version 3.1.3  protocol version 31
+Copyright (C) 1996-2018 by Andrew Tridgell, Wayne Davison, and others.
+Capabilities:
+    64-bit files, 64-bit inums, socketpairs, symlinks, hardlinks,
+    IPv6, ACLs, xattrs, iconv, prealloc, no crtimes
+
+
+==============================
+Create Large File
+==============================
+
+10+0 records in
+10+0 records out
+10485760 bytes (10 MB, 10 MiB) copied, 0.045912 s, 228 MB/s
+
+
+==============================
+Initial Directory Structure
+==============================
+
+total 10252
+drwxr-xr-x 3 toor toor    4096 Mar  5 14:11 .
+drwxr-xr-x 5 toor toor    4096 Mar  5 14:10 ..
+-rw------- 1 toor toor      19 Mar  5 14:11 config.conf
+-rwxr-xr-x 1 toor toor      19 Mar  5 14:11 document1.txt
+-rw-r--r-- 1 toor toor      19 Mar  5 14:11 document2.txt
+-rw-r--r-- 1 toor toor 10485760 Mar  5 14:11 largefile.dat
+drwxr-xr-x 2 toor toor    4096 Mar  5 14:11 subdirectory
+
+Subdirectory:
+
+total 12
+drwxr-xr-x 2 toor toor 4096 Mar  5 14:11 .
+drwxr-xr-x 3 toor toor 4096 Mar  5 14:11 ..
+-rw-r--r-- 1 toor toor   20 Mar  5 14:11 nested_file.txt
+
+
+==============================
+Basic Backup
+==============================
+
+sending incremental file list
+created directory /home/toor/backups/basic_backup
+./
+config.conf
+document1.txt
+document2.txt
+largefile.dat
+subdirectory/
+subdirectory/nested_file.txt
+
+sent 10,497,342 bytes  received 144 bytes
+total size is 10,485,837  speedup is 1.00
+
+
+==============================
+Advanced Backup (--stats)
+==============================
+
+Number of files: 6
+Number of files transferred: 6
+Total file size: 10,485,837 bytes
+Total transferred file size: 10,485,837 bytes
+Literal data: 10,485,837 bytes
+Matched data: 0 bytes
+Total bytes sent: 10,497,980
+Total bytes received: 210
+total size is 10,485,837  speedup is 1.00
+
+
+==============================
+Incremental Backup (Hard Links)
+==============================
+
+sending incremental file list
+created directory /home/toor/backups/incremental_backup
+./
+
+sent 198 bytes  received 82 bytes
+total size is 10,485,837  speedup is 37449.42
+
+
+==============================
+System Backup Script Execution
+==============================
+
+2025-03-05 14:18:02 - Starting system backup...
+sending incremental file list
+important_data/
+important_data/config.conf
+important_data/document1.txt
+important_data/document2.txt
+important_data/largefile.dat
+important_data/subdirectory/
+important_data/subdirectory/nested_file.txt
+
+Number of files: 32
+Number of files transferred: 7
+Total file size: 10,495,102 bytes
+Total transferred file size: 10,485,837 bytes
+Total bytes sent: 10,500,210
+Total bytes received: 420
+
+2025-03-05 14:18:03 - Backup completed successfully
+2025-03-05 14:18:03 - Backup size: 11M
+2025-03-05 14:18:03 - Backup manifest created: backup_manifest_20250305_141802.txt
+2025-03-05 14:18:03 - Backup process completed
+
+
+==============================
+Verification Script Output
+==============================
+
+2025-03-05 14:31:02 - Starting backup verification...
+2025-03-05 14:31:02 - Files in backup: 15
+2025-03-05 14:31:02 - Backup size: 11M
+2025-03-05 14:31:02 - VERIFIED: important_data/document1.txt exists in backup
+2025-03-05 14:31:02 - VERIFIED: important_data/document2.txt exists in backup
+2025-03-05 14:31:02 - VERIFIED: important_data/config.conf exists in backup
+2025-03-05 14:31:02 - Backup is current
+2025-03-05 14:31:02 - Backup verification completed
+
+
+==============================
+Cron Service Status
+==============================
+
+● cron.service - Regular background program processing daemon
+   Loaded: loaded (/lib/systemd/system/cron.service; enabled)
+   Active: active (running)
+
+
+Recent Cron Log:
+
+Mar  5 14:00:01 ip-172-31-10-214 CRON[1892]: (toor) CMD (/home/toor/system_backup.sh)
+Mar  5 14:06:01 ip-172-31-10-214 CRON[1954]: (toor) CMD (/home/toor/verify_backup.sh)
+
+
+==============================
+Simulated Data Loss
+==============================
+
+total 10244
+drwxr-xr-x 2 toor toor    4096 Mar  5 14:40 .
+drwxr-xr-x 6 toor toor    4096 Mar  5 14:30 ..
+-rw------- 1 toor toor      15 Mar  5 14:40 config.conf
+-rw-r--r-- 1 toor toor 10485760 Mar  5 14:11 largefile.dat
+
+config.conf content:
+corrupted data
+
+
+==============================
+Full Restoration
+==============================
+
+sending incremental file list
+created directory /home/toor/important_data
+./
+config.conf
+document1.txt
+document2.txt
+largefile.dat
+subdirectory/
+subdirectory/nested_file.txt
+
+sent 10,497,342 bytes  received 144 bytes
+total size is 10,485,837  speedup is 1.00
+
+
+Verification After Restoration:
+
+Configuration data
+Nested file content
+
+
+==============================
+Restoration Verification Script
+==============================
+
+2025-03-05 15:15:02 - Starting restoration verification...
+2025-03-05 15:15:02 - File count comparison:
+- Backup files: 22
+- Restored files: 22
+
+✓ VERIFIED: important_data/document1.txt matches backup
+✓ VERIFIED: important_data/document2.txt matches backup
+✓ VERIFIED: important_data/config.conf matches backup
+✓ VERIFIED: important_data/subdirectory/nested_file.txt matches backup
+
+✓ PERMISSIONS OK: important_data/document1.txt (755)
+✓ PERMISSIONS OK: important_data/document2.txt (644)
+✓ PERMISSIONS OK: important_data/config.conf (600)
+✓ PERMISSIONS OK: important_data/subdirectory/nested_file.txt (644)
+
+Restoration verification completed
+
+
+==============================
+Disk Usage
+==============================
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root        30G   12G   18G  40% /
+
+52M     /home/toor/backups/
+
+
+==============================
+Checksum Verification
+==============================
+
+system_backup/important_data/document1.txt: OK
+system_backup/important_data/document2.txt: OK
+system_backup/important_data/config.conf: OK
+system_backup/important_data/subdirectory/nested_file.txt: OK
+
+All files verified successfully.
+
+
+==========================================
+Lab 18 Completed Successfully
+==========================================
