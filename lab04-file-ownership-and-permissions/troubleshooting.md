@@ -5,9 +5,9 @@
 # 🔐 Issue 1: Permission Denied When Executing Script
 
 ## ❌ Problem
-```
+`
 bash: ./test_script.sh: Permission denied
-```
+`
 
 ## 🔎 Cause
 Execute permission not set.
@@ -27,9 +27,9 @@ ls -l test_script.sh
 # 📂 Issue 2: Cannot Access Directory
 
 ## ❌ Problem
-```
+`
 cd directory: Permission denied
-```
+`
 
 ## 🔎 Cause
 Execute (x) permission missing on directory.
