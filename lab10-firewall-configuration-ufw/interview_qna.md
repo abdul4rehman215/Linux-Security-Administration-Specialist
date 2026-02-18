@@ -10,7 +10,7 @@ It simplifies the configuration of **iptables**, which is the underlying packet 
 
 UFW abstracts complex iptables chains into easy-to-understand commands such as:
 
-`bash
+`
 sudo ufw allow 22/tcp
 `
 
@@ -29,10 +29,10 @@ If SSH (port 22) is not allowed before enabling UFW on a remote server:
 
 Best practice:
 
-`bash
-sudo ufw allow ssh
-sudo ufw enable
-`
+
+`sudo ufw allow ssh`
+`sudo ufw enable`
+
 
 ---
 
@@ -43,10 +43,10 @@ Default policies determine how traffic is handled if no explicit rule matches.
 
 Common secure configuration:
 
-`
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-`
+
+`sudo ufw default deny incoming`
+`sudo ufw default allow outgoing`
+
 
 This follows the **principle of least privilege**, ensuring only explicitly allowed services are accessible.
 
