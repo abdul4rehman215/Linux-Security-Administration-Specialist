@@ -38,12 +38,12 @@ By completing this lab, I achieved the following:
 
 ## 📌 Prerequisites
 
-• Basic knowledge of Linux command-line interface
-• Understanding of file system navigation and basic file operations
-• Familiarity with text editors (nano, vim, or gedit)
-• Knowledge of basic Linux commands (ls, cd, mkdir, chmod, etc.)
-• Understanding of file permissions in Linux
-• Basic understanding of input/output redirection
+- Basic knowledge of Linux command-line interface
+- Understanding of file system navigation and basic file operations
+- Familiarity with text editors (nano, vim, or gedit)
+- Knowledge of basic Linux commands (ls, cd, mkdir, chmod, etc.)
+- Understanding of file permissions in Linux
+- Basic understanding of input/output redirection
 
 ---
 
