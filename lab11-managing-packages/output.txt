@@ -1,0 +1,291 @@
+==============================
+🟢 UBUNTU 24.04 – APT OUTPUT
+==============================
+
+PRETTY_NAME="Ubuntu 24.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.1 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+
+/usr/bin/apt
+
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble-security InRelease
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+18 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+Sorting... Done
+Full Text Search... Done
+htop/noble 3.3.0-1 amd64
+  interactive processes viewer
+
+Package: htop
+Version: 3.3.0-1
+Priority: optional
+Section: utils
+Maintainer: Ubuntu Developers
+Installed-Size: 317 kB
+Depends: libc6 (>= 2.34), libncursesw6 (>= 6), libtinfo6
+Description: interactive processes viewer
+ Htop is an interactive text-mode process viewer.
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  htop
+0 upgraded, 1 newly installed, 0 to remove and 18 not upgraded.
+Need to get 110 kB of archives.
+After this operation, 317 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 htop 3.3.0-1 [110 kB]
+Fetched 110 kB in 0s (2,431 kB/s)
+Selecting previously unselected package htop.
+Unpacking htop (3.3.0-1) ...
+Setting up htop (3.3.0-1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+
+ii  htop     3.3.0-1     amd64     interactive processes viewer
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+curl is already the newest version.
+wget is already the newest version.
+vim is already the newest version.
+The following NEW packages will be installed:
+  tree
+0 upgraded, 1 newly installed.
+Setting up tree (2.1.1-2) ...
+
+Reading package lists... Done
+Building dependency tree... Done
+Calculating upgrade... Done
+0 upgraded, 0 newly installed, 0 to remove.
+
+htop is already the newest version (3.3.0-1).
+
+Removing tree (2.1.1-2) ...
+
+Package 'tree' is not installed.
+
+0 to remove.
+
+==============================
+🔵 CENTOS STREAM 9 – DNF OUTPUT
+==============================
+
+NAME="CentOS Stream"
+VERSION="9"
+ID="centos"
+ID_LIKE="rhel fedora"
+VERSION_ID="9"
+PRETTY_NAME="CentOS Stream 9"
+
+Last metadata expiration check: 0:12:14 ago on Tue 18 Feb 2026 02:21:13 PM UTC.
+Dependencies resolved.
+Nothing to do.
+Complete!
+
+================ Name Exactly Matched: htop =================
+htop.x86_64 : Interactive process viewer
+
+Name         : htop
+Version      : 3.2.2
+Release      : 2.el9
+Architecture : x86_64
+Size         : 211 k
+Source       : htop-3.2.2-2.el9.src.rpm
+Repository   : appstream
+Summary      : Interactive process viewer
+URL          : https://htop.dev/
+License      : GPLv2+
+Description  : Htop is an interactive text-mode process viewer.
+
+Dependencies resolved.
+=================================================================
+ Package        Architecture   Version          Repository   Size
+=================================================================
+Installing:
+ htop           x86_64         3.2.2-2.el9      appstream    211 k
+
+Transaction Summary
+=================================================================
+Install  1 Package
+
+Installed:
+  htop-3.2.2-2.el9.x86_64
+
+Complete!
+
+htop-3.2.2-2.el9.x86_64
+
+Dependencies resolved.
+Package curl-7.76.1-26.el9.x86_64 is already installed.
+Package wget-1.21.1-8.el9.x86_64 is already installed.
+Package vim-enhanced-9.0.167-1.el9.x86_64 is already installed.
+Installing:
+ tree-1.8.0-10.el9.x86_64
+
+Installed:
+  tree-1.8.0-10.el9.x86_64
+
+Complete!
+
+Removing:
+ tree-1.8.0-10.el9.x86_64
+
+Complete!
+
+No packages marked for removal.
+Complete!
+
+Removed 42 files, 12.3 M
+
+==============================
+APT REPOSITORY CONFIGURATION
+==============================
+
+deb http://archive.ubuntu.com/ubuntu noble main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu noble-updates main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu noble-security main restricted universe multiverse
+
+total 12
+drwxr-xr-x 2 root root 4096 Feb 18 14:10 .
+drwxr-xr-x 8 root root 4096 Feb 18 14:08 ..
+-rw-r--r-- 1 root root  112 Feb 18 14:10 ubuntu.sources
+
+-rw-r--r-- 1 root root 312 Feb 18 14:35 /etc/apt/sources.list.backup
+
+deb [signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/
+
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu noble-security InRelease
+Get:4 https://download.sublimetext.com apt/stable/ InRelease [2,350 B]
+Fetched 2,350 B in 1s (3,421 B/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+18 packages can be upgraded.
+
+==============================
+DNF REPOSITORY CONFIGURATION
+==============================
+
+repo id                     repo name
+appstream                   CentOS Stream 9 - AppStream
+baseos                      CentOS Stream 9 - BaseOS
+extras                      CentOS Stream 9 - Extras
+
+total 24
+drwxr-xr-x 2 root root 4096 Feb 18 14:22 .
+drwxr-xr-x 87 root root 8192 Feb 18 14:20 ..
+-rw-r--r-- 1 root root  900 Feb 18 14:20 CentOS-Stream-AppStream.repo
+-rw-r--r-- 1 root root  860 Feb 18 14:20 CentOS-Stream-BaseOS.repo
+-rw-r--r-- 1 root root  750 Feb 18 14:20 CentOS-Stream-Extras.repo
+
+Installing:
+ epel-release-9-3.el9.noarch
+
+Complete!
+
+epel                        Extra Packages for Enterprise Linux 9
+
+custom-repo                  Custom Repository                  enabled
+
+==============================
+PACKAGE CHECKER OUTPUT
+==============================
+
+=== Package Status Checker ===
+Date: Tue Feb 18 14:32:51 UTC 2026
+
+Package 'htop' is installed.
+Package 'curl' is installed.
+Package 'wget' is installed.
+Package 'vim' is installed.
+
+Total installed packages (APT): 1243
+
+==============================
+REPOSITORY CHECKER OUTPUT
+==============================
+
+=== Repository Health Checker ===
+Date: Tue Feb 18 14:40:27 UTC 2026
+
+Checking repository connectivity...
+APT repositories are reachable and healthy.
+
+Listing enabled repositories...
+APT repositories:
+/etc/apt/sources.list:deb http://archive.ubuntu.com/ubuntu noble main restricted universe multiverse
+/etc/apt/sources.list:deb http://archive.ubuntu.com/ubuntu noble-updates main restricted universe multiverse
+/etc/apt/sources.list:deb http://archive.ubuntu.com/ubuntu noble-security main restricted universe multiverse
+/etc/apt/sources.list.d/sublime-text.list:deb [signed-by=/usr/share/keyrings/sublimehq-archive-keyring.gpg] https://download.sublimetext.com/ apt/stable/
+
+==============================
+PACKAGE AUTOMATION TOOL OUTPUT
+==============================
+
+[14:52:11] Detected package manager: apt
+
+=== Package Automation Tool ===
+1. Update repositories
+2. Install dev tools
+3. Install custom packages
+4. Remove packages
+5. System maintenance
+6. Exit
+
+[14:52:15] Updating repositories...
+Reading package lists... Done
+[14:52:17] Repositories updated successfully.
+
+[14:52:25] Installing net-tools...
+Setting up net-tools (2.10-0.1ubuntu4) ...
+net-tools installed successfully.
+
+[14:52:28] Installing unzip...
+Setting up unzip (6.0-28ubuntu4) ...
+unzip installed successfully.
+
+Exiting...
+
+==============================
+AUTO UPDATE LOG OUTPUT
+==============================
+
+[2026-02-18 14:58:01] Starting automated update process...
+[2026-02-18 14:58:01] Detected package manager: apt
+[2026-02-18 14:58:01] Updating package lists...
+[2026-02-18 14:58:04] Upgrading packages...
+[2026-02-18 14:58:05] Removing unused packages...
+[2026-02-18 14:58:05] Cleaning cache...
+[2026-02-18 14:58:05] Automated update completed successfully.
+
+==============================
+PACKAGE INVENTORY OUTPUT
+==============================
+
+Creating package inventory...
+Inventory created successfully in directory: inventory_20260218_150245
+Files generated:
+- installed_packages.txt
+- system_summary.txt
+- security_updates.txt
+- restore_packages.sh
+
+total 128
+drwxrwxr-x 2 toor toor 4096 Feb 18 15:02 .
+drwxr-xr-x 5 toor toor 4096 Feb 18 15:02 ..
+-rw-rw-r-- 1 toor toor 73421 Feb 18 15:02 installed_packages.txt
+-rw-rw-r-- 1 toor toor  2843 Feb 18 15:02 security_updates.txt
+-rw-rw-r-- 1 toor toor  1821 Feb 18 15:02 system_summary.txt
+-rwxrwxr-x 1 toor toor 51234 Feb 18 15:02 restore_packages.sh
