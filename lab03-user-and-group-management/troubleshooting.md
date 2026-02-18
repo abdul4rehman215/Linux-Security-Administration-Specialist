@@ -1,5 +1,4 @@
-# 🛠 Troubleshooting Guide  
-## Lab 03 – User and Group Management
+# 🛠 Troubleshooting Guide - Lab 03: User and Group Management
 
 ---
 
