@@ -1,0 +1,205 @@
+==============================
+LAB 4 – FILE OWNERSHIP & PERMISSIONS
+==============================
+
+--- Initial Directory Structure ---
+
+total 24
+drwxr-xr-x 4 toor toor 4096 Feb 18 12:15 .
+drwxr-x--- 9 toor toor 4096 Feb 18 12:14 ..
+-rw-r--r-- 1 toor toor   21 Feb 18 12:15 file1.txt
+-rw-r--r-- 1 toor toor    0 Feb 18 12:15 file2.txt
+-rw-r--r-- 1 toor toor   17 Feb 18 12:15 secret.txt
+-rw-r--r-- 1 toor toor   55 Feb 18 12:15 test_script.sh
+drwxr-xr-x 2 toor toor 4096 Feb 18 12:15 testdir1
+drwxr-xr-x 2 toor toor 4096 Feb 18 12:15 testdir2
+
+
+--- stat Output ---
+
+644 file1.txt
+644 file2.txt
+644 secret.txt
+644 test_script.sh
+755 testdir1
+755 testdir2
+
+
+--- After chmod Numeric Changes ---
+
+-rw-r--r-- 1 toor toor 21 Feb 18 12:15 file1.txt
+-rw-r--r-- 1 toor toor  0 Feb 18 12:15 file2.txt
+-rw------- 1 toor toor 17 Feb 18 12:15 secret.txt
+-rwxr-xr-x 1 toor toor 55 Feb 18 12:15 test_script.sh
+drwxr-xr-x 2 toor toor 4096 Feb 18 12:15 testdir1
+drwxrwxrwx 2 toor toor 4096 Feb 18 12:15 testdir2
+
+644 file1.txt
+644 file2.txt
+600 secret.txt
+755 test_script.sh
+755 testdir1
+777 testdir2
+
+
+--- Recursive Permission Verification ---
+
+drwxr-xr-x 4 toor toor 4096 Feb 18 12:28 testdir1
+drwxr-xr-x 3 toor toor 4096 Feb 18 12:28 testdir1/subdir1
+drwxr-xr-x 2 toor toor 4096 Feb 18 12:28 testdir1/subdir1/subdir2
+-rwxr-xr-x 1 toor toor    0 Feb 18 12:28 testdir1/file_in_dir.txt
+-rwxr-xr-x 1 toor toor    0 Feb 18 12:28 testdir1/subdir1/nested_file.txt
+
+
+--- Group Membership Verification ---
+
+toor : toor adm cdrom sudo dip plugdev testgroup
+
+
+--- Ownership Changes ---
+
+-rw-r--r-- 1 toor testgroup 21 Feb 18 12:15 file1.txt
+-rw-r--r-- 1 toor testgroup  0 Feb 18 12:15 file2.txt
+-rw------- 1 toor toor      17 Feb 18 12:15 secret.txt
+-rwxr-xr-x 1 toor toor      55 Feb 18 12:15 test_script.sh
+drwxr-xr-x 4 toor testgroup 4096 Feb 18 12:28 testdir1
+drwxrwxrwx 2 toor toor      4096 Feb 18 12:15 testdir2
+
+drwxr-xr-x 4 toor testgroup 4096 Feb 18 12:28 testdir1
+
+-rw-r--r-- 1 toor testgroup 21 Feb 18 12:15 file1.txt
+-rw-r--r-- 1 toor testgroup  0 Feb 18 12:15 file2.txt
+-rw------- 1 toor testgroup 17 Feb 18 12:15 secret.txt
+-rwxr-xr-x 1 toor toor      55 Feb 18 12:15 test_script.sh
+drwxr-xr-x 4 toor testgroup 4096 Feb 18 12:28 testdir1
+drwxrwxrwx 2 toor testgroup 4096 Feb 18 12:15 testdir2
+
+
+--- umask Tests ---
+
+0022
+u=rwx,g=rx,o=rx
+
+-rw-r--r-- 1 toor toor 0 Feb 18 12:55 umask_test1.txt
+-rw------- 1 toor toor 0 Feb 18 12:56 umask_test2.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 12:57 umask_test3.txt
+
+Comparing files created with different umask values:
+-rw-r--r-- 1 toor toor 0 Feb 18 12:55 umask_test1.txt
+-rw------- 1 toor toor 0 Feb 18 12:56 umask_test2.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 12:57 umask_test3.txt
+
+
+--- .bashrc Modification ---
+
+# Custom umask setting for lab
+umask 027
+
+
+--- ACL Operations ---
+
+# file: acl_test1.txt
+# owner: toor
+# group: toor
+user::rw-
+group::r--
+other::r--
+
+# file: acl_test1.txt
+# owner: toor
+# group: toor
+user::rw-
+user:toor:rw-
+group::r--
+group:testgroup:r--
+mask::rw-
+other::r--
+
+# file: acl_testdir
+# owner: toor
+# group: toor
+user::rwx
+group::r-x
+other::r-x
+default:user::rwx
+default:user:toor:rwx
+default:group::r-x
+default:group:testgroup:r-x
+default:mask::rwx
+default:other::r-x
+
+# file: acl_testdir/inherited_file.txt
+# owner: toor
+# group: toor
+user::rw-
+user:toor:rwx
+group::r-x
+group:testgroup:r-x
+mask::rwx
+other::r--
+
+# file: acl_test1.txt
+# owner: toor
+# group: toor
+user::rw-
+group::r--
+group:testgroup:r--
+mask::r--
+other::r--
+
+
+--- Web Server Structure Verification ---
+
+drwxr-xr-x 5 toor toor 4096 Feb 18 13:25 /home/toor/webserver
+drwxr-xr-x 2 toor toor 4096 Feb 18 13:25 /home/toor/webserver/public_html
+-rw-r--r-- 1 toor toor    0 Feb 18 13:25 /home/toor/webserver/public_html/index.html
+drwxr-xr-x 2 toor toor 4096 Feb 18 13:25 /home/toor/webserver/logs
+-rw-r--r-- 1 toor toor    0 Feb 18 13:25 /home/toor/webserver/logs/access.log
+drwx------ 2 toor toor 4096 Feb 18 13:25 /home/toor/webserver/config
+-rw------- 1 toor toor    0 Feb 18 13:25 /home/toor/webserver/config/server.conf
+
+
+--- Shared Directory Special Bits ---
+
+drwxrwsr-t 2 toor testgroup 4096 Feb 18 13:40 /home/toor/shared_project
+
+-rw-r--r-- 1 toor testgroup 0 Feb 18 13:41 team_file.txt
+
+
+--- Verification Script Output ---
+
+=== File Permissions Lab Verification ===
+
+1. Testing chmod functionality:
+-rw-r--r-- 1 toor testgroup 21 Feb 18 12:15 file1.txt
+-rw-r--r-- 1 toor testgroup  0 Feb 18 12:15 file2.txt
+-rw------- 1 toor testgroup 17 Feb 18 12:15 secret.txt
+-rwxr-xr-x 1 toor toor      55 Feb 18 12:15 test_script.sh
+
+2. Testing ownership changes:
+-rw-r--r-- 1 toor testgroup 21 Feb 18 12:15 file1.txt
+-rw-r--r-- 1 toor testgroup  0 Feb 18 12:15 file2.txt
+-rw------- 1 toor testgroup 17 Feb 18 12:15 secret.txt
+
+3. Testing umask effects:
+-rw-r--r-- 1 toor toor 0 Feb 18 12:55 umask_test1.txt
+-rw------- 1 toor toor 0 Feb 18 12:56 umask_test2.txt
+-rw-r--r-- 1 toor toor 0 Feb 18 12:57 umask_test3.txt
+
+4. Testing ACL functionality:
+# file: acl_test1.txt
+# owner: toor
+# group: toor
+user::rw-
+user:toor:rw-
+group::r--
+mask::r--
+other::r--
+
+5. Testing special permissions:
+drwxrwsr-t 2 toor testgroup 4096 Feb 18 13:40 /home/toor/shared_project
+
+6. Current umask setting:
+0022
+
+=== Verification Complete ===
