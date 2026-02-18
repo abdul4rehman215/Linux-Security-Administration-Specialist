@@ -103,6 +103,25 @@ Audit system fully operational and validated.
 
 ---
 
+## 📂 Project Structure
+
+This lab repository is organized as follows:
+
+```
+lab15-security-auditing-with-auditd/
+├── README.md
+├── commands.sh
+├── output.txt
+├── interview_qna.md
+├── troubleshooting.md
+└── scripts/
+    ├── audit_analyzer.sh
+    ├── audit_rule_manager.sh
+    └── audit_performance_monitor.sh
+```
+
+---
+
 ## 🌍 Real-World Relevance
 
 Auditd is widely used in:
