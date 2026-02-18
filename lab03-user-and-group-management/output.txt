@@ -1,0 +1,205 @@
+==============================
+Lab 03 – User and Group Management
+Terminal Output Log
+==============================
+
+$ whoami
+toor
+
+$ id
+uid=1000(toor) gid=1000(toor) groups=1000(toor),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev)
+
+$ cat /etc/passwd (partial)
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+...
+toor:x:1000:1000:Toor User:/home/toor:/bin/bash
+
+$ cat /etc/group (partial)
+root:x:0:
+adm:x:4:syslog,toor
+sudo:x:27:toor
+plugdev:x:46:toor
+toor:x:1000:
+
+$ sudo cat /etc/shadow (partial)
+root:$6$asdfkjh34...:19823:0:99999:7:::
+toor:$6$kdfjhsd98...:19823:0:99999:7:::
+
+--------------------------------------
+
+User Creation
+
+$ sudo useradd john
+$ grep john /etc/passwd
+john:x:1001:1001::/home/john:/bin/sh
+
+$ id john
+uid=1001(john) gid=1001(john) groups=1001(john)
+
+$ sudo useradd -m -s /bin/bash -c "Jane Smith" -G users jane
+$ grep jane /etc/passwd
+jane:x:1002:1002:Jane Smith:/home/jane:/bin/bash
+
+$ id jane
+uid=1002(jane) gid=1002(jane) groups=1002(jane),100(users)
+
+$ sudo useradd -m -d /home/custom_mike -s /bin/bash mike
+$ grep mike /etc/passwd
+mike:x:1003:1003::/home/custom_mike:/bin/bash
+
+$ sudo passwd john
+passwd: password updated successfully
+
+$ sudo passwd jane
+passwd: password updated successfully
+
+$ sudo passwd mike
+passwd: password updated successfully
+
+$ sudo useradd -r -s /bin/false serviceuser
+$ id serviceuser
+uid=999(serviceuser) gid=999(serviceuser) groups=999(serviceuser)
+
+--------------------------------------
+
+User Modification
+
+$ sudo usermod -s /bin/zsh john
+john:x:1001:1001::/home/john:/bin/zsh
+
+$ sudo usermod -d /home/john_new -m john
+drwxr-xr-x  2 john john 4096 Feb 18 11:05 john_new
+
+$ sudo usermod -c "John Doe - Developer" john
+john:x:1001:1001:John Doe - Developer:/home/john_new:/bin/zsh
+
+$ sudo usermod -L mike
+$ sudo passwd -S mike
+mike L 02/18/2026 0 99999 7 -1
+
+$ sudo usermod -U mike
+$ sudo passwd -S mike
+mike P 02/18/2026 0 99999 7 -1
+
+$ sudo usermod -u 1500 jane
+$ id jane
+uid=1500(jane) gid=1002(jane) groups=1002(jane),100(users)
+
+--------------------------------------
+
+User Deletion
+
+$ sudo userdel serviceuser
+User serviceuser deleted
+
+$ sudo userdel -r mike
+userdel: mike mail spool (/var/mail/mike) not found
+Mike's home directory removed
+
+$ sudo userdel -f john
+User john deleted successfully
+
+--------------------------------------
+
+Group Management
+
+$ sudo groupadd developers
+developers:x:1004:
+
+$ sudo groupadd -g 2000 managers
+$ sudo groupadd -r systemgroup
+
+developers:x:1004:
+managers:x:2000:
+systemgroup:x:998:
+
+$ sudo usermod -aG developers jane
+$ groups jane
+jane : jane users developers
+
+$ sudo usermod -aG managers,users jane
+jane : jane users developers managers
+
+$ sudo useradd -m -G developers,users alice
+alice : alice users developers
+
+$ sudo usermod -g developers alice
+uid=1004(alice) gid=1004(developers) groups=1004(developers),100(users)
+
+$ getent group project_alpha
+project_alpha:x:1005:bob,carol
+
+$ sudo gpasswd -d jane managers
+Removing user jane from group managers
+
+$ sudo gpasswd -a jane managers
+Adding user jane to group managers
+
+--------------------------------------
+
+Development Team Setup
+
+webdev:x:1006:
+database:x:1007:
+devops:x:1008:
+
+sarah : sarah users webdev
+david : david users database
+lisa : lisa users devops
+
+drwxrwxr-x 2 root webdev 4096 Feb 18 11:35 /opt/projects
+
+--------------------------------------
+
+Password Aging
+
+$ sudo chage -l sarah
+Minimum number of days between password change : 7
+Maximum number of days between password change : 90
+Number of days of warning before password expires : 14
+
+$ sudo chage -l intern1
+Last password change : password must be changed
+
+--------------------------------------
+
+Security Checks
+
+$ awk -F: '($3 == 0) {print $1}' /etc/passwd
+root
+
+$ cut -d: -f3 /etc/passwd | sort | uniq -d
+(No duplicate UIDs found)
+
+$ lastlog | grep -E "(toor|jane|sarah)"
+toor    pts/0    172.31.10.1    Tue Feb 18 11:10:45 +0000 2026
+
+$ sudo grep "Failed password" /var/log/auth.log
+No recent failed attempts
+
+--------------------------------------
+
+Cleanup
+
+Removed user: alice
+Removed user: bob
+Removed user: carol
+Removed user: sarah
+Removed user: david
+Removed user: lisa
+Removed user: intern1
+Removed user: intern2
+Removed user: intern3
+
+Removed group: webdev
+Removed group: database
+Removed group: devops
+Removed group: managers
+
+Current users with login shells:
+root
+toor
+jane
+
+Jane user exists
