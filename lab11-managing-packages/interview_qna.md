@@ -1,5 +1,4 @@
-# 🎯 Interview Questions & Answers  
-Lab 11 – Managing Packages with APT / YUM (DNF)
+# 🎤 Interview Q&A - Lab 11: Managing Packages with APT / YUM (DNF)
 
 ---
 
@@ -29,14 +28,14 @@ Both manage dependencies automatically but operate within different Linux ecosys
 ## 3️⃣ How do you check if a package is installed?
 
 - On APT systems:
-  ```
+  `
   dpkg -l | grep package_name
-  ```
+  `
 
 - On RPM systems:
-  ```
+  `
   rpm -qa | grep package_name
-  ```
+  `
 
 ---
 
@@ -79,16 +78,16 @@ EPEL (Extra Packages for Enterprise Linux) is a repository providing additional 
 ## 8️⃣ How do you troubleshoot a locked package manager?
 
 For APT:
-```
-sudo rm -f /var/lib/dpkg/lock-frontend
-sudo dpkg --configure -a
-```
+
+`sudo rm -f /var/lib/dpkg/lock-frontend`
+`sudo dpkg --configure -a`
+
 
 For DNF:
-```
-sudo rm -f /var/run/yum.pid
-sudo dnf clean all
-```
+
+`sudo rm -f /var/run/yum.pid`
+`sudo dnf clean all`
+
 
 Locks usually occur when another update process is running.
 
