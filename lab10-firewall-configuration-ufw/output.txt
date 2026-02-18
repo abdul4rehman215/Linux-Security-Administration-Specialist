@@ -1,0 +1,250 @@
+============================================================
+Lab 10: Firewall Configuration with UFW
+Complete Command Output Log
+============================================================
+
+
+------------------------------------------------------------
+UFW Version Check
+------------------------------------------------------------
+ufw 0.36
+Copyright 2008-2020 Canonical Ltd.
+
+
+------------------------------------------------------------
+Initial Status
+------------------------------------------------------------
+Status: inactive
+
+
+------------------------------------------------------------
+Default Policy Configuration
+------------------------------------------------------------
+Default incoming policy changed to 'deny'
+Default outgoing policy changed to 'allow'
+
+
+------------------------------------------------------------
+Allow SSH
+------------------------------------------------------------
+Rule added
+Rule added (v6)
+
+
+------------------------------------------------------------
+Enable Firewall
+------------------------------------------------------------
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
+
+
+------------------------------------------------------------
+Firewall Status After Enable
+------------------------------------------------------------
+Status: active
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW       Anywhere
+22/tcp (v6)                ALLOW       Anywhere (v6)
+
+
+------------------------------------------------------------
+Basic Service Rules Added
+------------------------------------------------------------
+Rule added
+Rule added (v6)
+Rule added
+Rule added (v6)
+Rule added
+Rule added (v6)
+
+
+------------------------------------------------------------
+Status Numbered
+------------------------------------------------------------
+Status: active
+
+[ 1] 22/tcp                     ALLOW IN    Anywhere
+[ 2] 80/tcp                     ALLOW IN    Anywhere
+[ 3] 443/tcp                    ALLOW IN    Anywhere
+[ 4] 21/tcp                     ALLOW IN    Anywhere
+[ 5] 8080/tcp                   ALLOW IN    Anywhere
+[ 6] 3306/tcp                   ALLOW IN    Anywhere
+
+
+------------------------------------------------------------
+Deny Rules Added
+------------------------------------------------------------
+Rule added
+Rule added (v6)
+Rule added
+Rule added (v6)
+
+
+------------------------------------------------------------
+Verbose Status
+------------------------------------------------------------
+Status: active
+Logging: off
+Default: deny (incoming), allow (outgoing), disabled (routed)
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere
+80/tcp                     ALLOW IN    Anywhere
+443/tcp                    ALLOW IN    Anywhere
+21/tcp                     ALLOW IN    Anywhere
+8080/tcp                   ALLOW IN    Anywhere
+3306/tcp                   ALLOW IN    Anywhere
+23/tcp                     DENY IN     Anywhere
+25/tcp                     DENY IN     Anywhere
+
+
+------------------------------------------------------------
+IP-Based Rules
+------------------------------------------------------------
+Rule added
+Rule added
+Rule added
+Rule added
+Rule added
+
+
+------------------------------------------------------------
+Port Range Rules
+------------------------------------------------------------
+Rule added
+Rule added
+Rule added
+
+
+------------------------------------------------------------
+Application Profiles
+------------------------------------------------------------
+Available applications:
+  Apache
+  Apache Full
+  Apache Secure
+  OpenSSH
+
+
+Profile: Apache Full
+Title: Web Server (HTTP,HTTPS)
+Description: Apache v2 is the next generation of the omnipresent Apache web server.
+Ports:
+  80,443/tcp
+
+Rule updated
+Rule updated (v6)
+
+
+------------------------------------------------------------
+Logging Configuration
+------------------------------------------------------------
+Logging enabled
+Logging level set to 'medium'
+Logging level set to 'high'
+
+
+------------------------------------------------------------
+UFW Journal Logs
+------------------------------------------------------------
+Feb 18 13:19:58 ip-172-31-10-178 ufw[1123]: Default incoming policy changed to deny
+Feb 18 13:20:01 ip-172-31-10-178 ufw[1123]: Firewall enabled
+
+
+------------------------------------------------------------
+Blocked Connection Example
+------------------------------------------------------------
+UFW BLOCK IN=eth0 SRC=203.0.113.45 DST=172.31.10.178 PROTO=TCP DPT=23
+UFW BLOCK IN=eth0 SRC=198.51.100.22 DST=172.31.10.178 PROTO=TCP DPT=25
+
+
+------------------------------------------------------------
+Telnet Test
+------------------------------------------------------------
+Trying 127.0.0.1...
+telnet: Unable to connect to remote host: Connection refused
+
+
+------------------------------------------------------------
+Allowed HTTP Test
+------------------------------------------------------------
+HTTP/1.1 200 OK
+Server: Apache/2.4.41 (Ubuntu)
+Content-Type: text/html
+
+
+------------------------------------------------------------
+Rule Deletion
+------------------------------------------------------------
+Deleting:
+ allow 8080/tcp
+Proceed with operation (y|n)? y
+Rule deleted
+
+
+------------------------------------------------------------
+UFW Configuration File
+------------------------------------------------------------
+ENABLED=yes
+LOGLEVEL=high
+
+
+------------------------------------------------------------
+UFW Reset
+------------------------------------------------------------
+Backing up 'user.rules'
+Backing up 'before.rules'
+Backing up 'after.rules'
+Resetting all rules to installed defaults.
+Firewall now inactive.
+
+
+------------------------------------------------------------
+Automation Script Output
+------------------------------------------------------------
+Starting UFW Firewall Configuration...
+Default incoming policy changed to 'deny'
+Default outgoing policy changed to 'allow'
+Rule added: ssh
+Rule added: http
+Rule added: https
+Rule added: Apache Full
+Rule added: 3306
+Rule added: 8080
+Rule added: telnet denied
+Rule added: ftp denied
+Logging level set to medium
+Firewall is active
+UFW Configuration Complete!
+Firewall setup completed successfully!
+
+
+------------------------------------------------------------
+Monitoring Script Output
+------------------------------------------------------------
+UFW Firewall Monitoring Report
+==============================
+
+Current UFW Status:
+Status: active
+
+Recent Blocked Connections (Last 10):
+UFW BLOCK SRC=203.0.113.45
+UFW BLOCK SRC=198.51.100.22
+
+Recent Allowed Connections (Last 5):
+UFW ALLOW SRC=127.0.0.1
+
+Top Blocked IP Addresses:
+ 3 203.0.113.45
+ 2 198.51.100.22
+
+Monitoring complete!
+
+
+============================================================
+Lab 10 Completed Successfully
+============================================================
