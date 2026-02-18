@@ -1,0 +1,22 @@
+[Unit]
+Description=Advanced Custom Service
+After=network.target multi-user.target
+Requires=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+EnvironmentFile=/etc/default/advanced-service
+ExecStart=/opt/myapp/advanced-service.sh
+ExecStop=/bin/kill -TERM $MAINPID
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=30
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
