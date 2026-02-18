@@ -1,0 +1,189 @@
+===============================
+Lab 17 – System Hardening with Fail2Ban
+Command Outputs
+===============================
+
+
+-------------------------------------------------
+sudo apt update
+-------------------------------------------------
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Get:2 http://archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Fetched 126 kB in 1s
+Reading package lists... Done
+
+
+-------------------------------------------------
+sudo apt install fail2ban -y
+-------------------------------------------------
+The following NEW packages will be installed:
+  fail2ban python3-pyinotify
+0 upgraded, 2 newly installed
+After this operation, 2,342 kB of additional disk space will be used.
+Setting up fail2ban (1.0.2-1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/fail2ban.service
+
+
+-------------------------------------------------
+fail2ban-client version
+-------------------------------------------------
+Fail2Ban v1.0.2
+
+
+-------------------------------------------------
+sudo systemctl status fail2ban
+-------------------------------------------------
+● fail2ban.service - Fail2Ban Service
+     Loaded: loaded (/lib/systemd/system/fail2ban.service; enabled)
+     Active: active (running)
+
+
+-------------------------------------------------
+sudo fail2ban-client status
+-------------------------------------------------
+Status
+|- Number of jail: 1
+`- Jail list: sshd
+
+
+-------------------------------------------------
+sudo fail2ban-client status sshd
+-------------------------------------------------
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed: 0
+|  |- Total failed: 0
+`- Actions
+   |- Currently banned: 0
+   `- Banned IP list:
+
+
+-------------------------------------------------
+After configuring all jails
+-------------------------------------------------
+sudo fail2ban-client status
+
+Status
+|- Number of jail: 6
+`- Jail list: sshd, apache-auth, apache-badbots, apache-noscript, webapp-custom, vsftpd
+
+
+-------------------------------------------------
+sudo fail2ban-client status sshd
+-------------------------------------------------
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed: 0
+|  |- Total failed: 0
+`- Actions
+   |- Currently banned: 0
+   `- Banned IP list:
+
+
+-------------------------------------------------
+Simulated Failed SSH Attempts
+-------------------------------------------------
+ssh invaliduser@localhost
+invaliduser@localhost's password:
+Permission denied, please try again.
+Permission denied, please try again.
+Permission denied (publickey,password).
+
+
+-------------------------------------------------
+sudo fail2ban-client status sshd
+-------------------------------------------------
+Status for the jail: sshd
+|- Filter
+|  |- Currently failed: 3
+|  |- Total failed: 3
+`- Actions
+   |- Currently banned: 1
+   `- Banned IP list: 127.0.0.1
+
+
+-------------------------------------------------
+sudo tail -20 /var/log/fail2ban.log
+-------------------------------------------------
+2026-02-19 14:28:12 fail2ban.actions [1921]: NOTICE [sshd] Ban 127.0.0.1
+
+
+-------------------------------------------------
+sudo fail2ban-client -t
+-------------------------------------------------
+Configuration file is valid
+
+
+-------------------------------------------------
+sudo iptables -L -n
+-------------------------------------------------
+Chain f2b-sshd (1 references)
+target     prot opt source        destination
+REJECT     all  --  127.0.0.1     0.0.0.0/0
+
+
+-------------------------------------------------
+sudo /usr/local/bin/fail2ban-monitor.sh
+-------------------------------------------------
+(Report generated successfully in /var/log/fail2ban-monitor.log)
+
+
+-------------------------------------------------
+sudo tail -15 /var/log/fail2ban-monitor.log
+-------------------------------------------------
+=== Fail2Ban Status Report - 2026-02-19 14:12:21 ===
+Service Status:
+active
+
+Overall Status:
+Status
+|- Number of jail: 6
+`- Jail list: sshd, apache-auth, apache-badbots, apache-noscript, webapp-custom, vsftpd
+
+Recent Ban Activity:
+(no recent bans)
+
+System Resources:
+root  1921  0.1  1.2  fail2ban-server
+=== End Report ===
+
+
+-------------------------------------------------
+sudo /usr/local/bin/fail2ban-manage.sh --status
+-------------------------------------------------
+Status
+|- Number of jail: 6
+`- Jail list: sshd, apache-auth, apache-badbots, apache-noscript, webapp-custom, vsftpd
+
+
+-------------------------------------------------
+sudo /usr/local/bin/fail2ban-verify.sh
+-------------------------------------------------
+=== Fail2Ban System Verification ===
+
+1. Service Status:
+active
+
+2. Active Jails:
+Status
+|- Number of jail: 6
+`- Jail list: sshd, apache-auth, apache-badbots, apache-noscript, webapp-custom, vsftpd
+
+3. Configuration Test:
+Configuration file is valid
+
+4. Log Files Being Monitored:
+ sshd: /var/log/auth.log
+
+5. Recent Activity (last 10 lines):
+2026-02-19 14:28:12 fail2ban.actions [1921]: NOTICE [sshd] Ban 127.0.0.1
+
+=== Verification Complete ===
+
+
+-------------------------------------------------
+Mail Utilities Installation
+-------------------------------------------------
+The following NEW packages will be installed:
+  mailutils postfix
+Setting up mailutils ...
