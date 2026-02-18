@@ -1,0 +1,240 @@
+==============================================
+Lab 05 - Hardening Linux with sudo
+Full Command Outputs
+==============================================
+
+==============================================
+Environment Verification
+==============================================
+
+$ cat /etc/os-release
+
+PRETTY_NAME="Ubuntu 24.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.1 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+
+
+$ sudo --version
+
+Sudo version 1.9.15p2
+Sudoers policy plugin version 1.9.15p2
+Sudoers file grammar version 48
+Sudoers path: /etc/sudoers
+Authentication methods: 'pam'
+Syslog facility if syslog is being used for logging: authpriv
+Default password prompt: [sudo] password for %p:
+
+
+$ sudo -l
+
+Matching Defaults entries for toor on ip-172-31-10-214:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin,
+    use_pty
+
+User toor may run the following commands on ip-172-31-10-214:
+    (ALL : ALL) ALL
+
+
+$ ls -la /etc/sudoers
+
+-r--r----- 1 root root 1769 Jan  5 09:21 /etc/sudoers
+
+
+$ ls -la /etc/sudoers.d/
+
+total 12
+drwxr-xr-x 2 root root 4096 Jan  5 09:21 .
+drwxr-xr-x 98 root root 4096 Feb 18 07:42 ..
+-r--r----- 1 root root  110 Jan  5 09:21 README
+
+
+==============================================
+Sudoers Hardening Validation
+==============================================
+
+/etc/sudoers: parsed OK
+
+
+$ ls -la /etc/sudoers.backup.*
+
+-r--r----- 1 root root 1983 Feb 18 10:11 /etc/sudoers.backup.20260218
+
+
+$ sudo -l
+
+Matching Defaults entries for toor on ip-172-31-10-214:
+    env_reset, mail_badpass, secure_path=..., use_pty,
+    log_input, log_output,
+    iolog_dir=/var/log/sudo-io,
+    logfile=/var/log/sudo.log,
+    timestamp_timeout=15,
+    passwd_tries=3,
+    passwd_timeout=5
+
+User toor may run the following commands:
+    (ALL : ALL) ALL
+
+
+==============================================
+User & Group Creation
+==============================================
+
+(No output indicates successful user creation)
+
+passwd: password updated successfully
+passwd: password updated successfully
+passwd: password updated successfully
+passwd: password updated successfully
+
+(No output — groups created successfully)
+
+
+$ id webadmin
+uid=1001(webadmin) gid=1001(webadmin) groups=1001(webadmin),1005(web-operators)
+
+$ id dbadmin
+uid=1002(dbadmin) gid=1002(dbadmin) groups=1002(dbadmin),1006(db-operators)
+
+$ id developer
+uid=1003(developer) gid=1003(developer) groups=1003(developer),1007(dev-team)
+
+$ id auditor
+uid=1004(auditor) gid=1004(auditor) groups=1004(auditor),1008(audit-team)
+
+
+==============================================
+Role Testing - Webadmin
+==============================================
+
+$ sudo systemctl status apache2
+
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/lib/systemd/system/apache2.service; disabled; preset: enabled)
+     Active: inactive (dead)
+
+
+$ sudo cat /etc/passwd
+
+Sorry, user webadmin is not allowed to execute '/bin/cat /etc/passwd' as root on ip-172-31-10-214.
+
+
+==============================================
+Role Testing - Developer
+==============================================
+
+$ sudo apt update
+
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Fetched 252 kB in 1s
+Reading package lists... Done
+All packages are up to date.
+
+
+$ sudo apt install curl -y
+
+curl is already the newest version (8.5.0-1ubuntu2).
+0 upgraded, 0 newly installed, 0 to remove.
+
+
+$ sudo rm -rf /etc/passwd
+
+Sorry, user developer is not allowed to execute '/bin/rm -rf /etc/passwd' as root on ip-172-31-10-214.
+
+
+==============================================
+Role Testing - Auditor
+==============================================
+
+$ sudo tail /var/log/syslog
+
+Feb 18 10:22:41 ip-172-31-10-214 sudo: webadmin : COMMAND=/usr/bin/systemctl restart apache2
+Feb 18 10:24:10 ip-172-31-10-214 sudo: developer : COMMAND=/usr/bin/apt update
+
+
+$ sudo systemctl restart ssh
+
+Sorry, user auditor is not allowed to execute '/usr/bin/systemctl restart ssh' as root on ip-172-31-10-214.
+
+
+==============================================
+Logging Validation
+==============================================
+
+$ ls -ld /var/log/sudo-io
+
+drwxr-x--- 2 root adm 4096 Feb 18 10:32 /var/log/sudo-io
+
+
+$ sudo systemctl status rsyslog
+
+● rsyslog.service - System Logging Service
+     Loaded: loaded
+     Active: active (running)
+
+
+$ sudo tail -f /var/log/sudo.log
+
+Feb 18 10:38:41 ip-172-31-10-214 sudo: toor : COMMAND=/usr/bin/ls /root
+Feb 18 10:39:02 ip-172-31-10-214 sudo: toor : COMMAND=/usr/bin/cat /etc/passwd
+Feb 18 10:39:22 ip-172-31-10-214 sudo: toor : COMMAND=/usr/bin/systemctl status ssh
+
+
+$ sudo tail -f /var/log/sudo-commands.log
+
+Feb 18 10:38:41 ip-172-31-10-214 sudo: toor : COMMAND=/usr/bin/ls /root
+Feb 18 10:39:02 ip-172-31-10-214 sudo: toor : COMMAND=/usr/bin/cat /etc/passwd
+
+
+==============================================
+Monitoring Script Test
+==============================================
+
+(No output — script executed silently)
+
+
+$ sudo tail -5 /var/log/auth.log | grep sudo-monitor
+
+Feb 18 10:46:02 ip-172-31-10-214 sudo-monitor: SUDO SECURITY ALERT: Sudo activity detected outside business hours
+
+
+==============================================
+Log File Permissions
+==============================================
+
+$ ls -la /var/log/sudo*
+
+-rw-r----- 1 root adm  2483 Feb 18 10:46 /var/log/sudo.log
+-rw-r----- 1 root adm  1810 Feb 18 10:46 /var/log/sudo-commands.log
+drwxr-x--- 4 root adm  4096 Feb 18 10:38 /var/log/sudo-io
+
+
+==============================================
+Configuration Validation
+==============================================
+
+$ sudo visudo -c
+
+/etc/sudoers: parsed OK
+/etc/sudoers.d/web-operators: parsed OK
+/etc/sudoers.d/db-operators: parsed OK
+/etc/sudoers.d/dev-team: parsed OK
+/etc/sudoers.d/audit-team: parsed OK
+
+
+$ sudo logrotate -d /etc/logrotate.d/sudo
+
+Handling 2 logs
+rotating pattern: /var/log/sudo.log weekly
+rotating pattern: /var/log/sudo-io/*/*.log weekly
+
+Configuration validated successfully.
+
+
+==============================================
+Lab 05 Completed Successfully
+==============================================
