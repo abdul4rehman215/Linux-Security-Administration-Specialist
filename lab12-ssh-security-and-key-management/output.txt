@@ -1,0 +1,159 @@
+========================================
+TASK 1: SSH KEY GENERATION
+========================================
+
+total 8
+drwx------ 2 toor toor 4096 Feb 18 15:32 .
+drwxr-xr-x 5 toor toor 4096 Feb 18 15:30 ..
+
+No existing keys found.
+
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/toor/.ssh/id_rsa): 
+Created directory '/home/toor/.ssh'.
+Enter passphrase (empty for no passphrase): ************
+Enter same passphrase again: ************
+Your identification has been saved in /home/toor/.ssh/id_rsa
+Your public key has been saved in /home/toor/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:J7x9rLk8sWQ8hL0kZx9P0VnG3mF0X5T0abc123 student@example.com
+The key's randomart image is:
++---[RSA 4096]----+
+|     .o+o        |
+|     .o+o .      |
+|    . .+ +       |
+|   .  o o  .      |
+|  .   S   .       |
+|   o . o           |
+|    . +            |
+|     o .           |
+|      E            |
++----[SHA256]-------+
+
+total 20
+drwx------ 2 toor toor 4096 Feb 18 15:34 .
+drwxr-xr-x 5 toor toor 4096 Feb 18 15:30 ..
+-rw------- 1 toor toor 3389 Feb 18 15:34 id_rsa
+-rw-r--r-- 1 toor toor  742 Feb 18 15:34 id_rsa.pub
+
+========================================
+TEST USER SETUP
+========================================
+
+New password: ********
+Retype new password: ********
+passwd: password updated successfully
+
+drwx------ 2 testuser testuser 4096 Feb 18 15:38 .
+-rw------- 1 testuser testuser  742 Feb 18 15:38 authorized_keys
+
+========================================
+KEY-BASED LOGIN TEST
+========================================
+
+The authenticity of host 'localhost (::1)' can't be established.
+ED25519 key fingerprint is SHA256:abcd123example.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'localhost' (ED25519) to the list of known hosts.
+Enter passphrase for key '/home/toor/.ssh/id_rsa': ************
+Login successful:
+testuser@ip-172-31-10-233:~$
+
+========================================
+SSH HARDENING
+========================================
+
+Include /etc/ssh/sshd_config.d/*.conf
+KbdInteractiveAuthentication no
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+
+(No output — configuration syntax OK)
+
+● ssh.service - OpenBSD Secure Shell server
+   Active: active (running)
+
+LISTEN 0 128 0.0.0.0:2222 0.0.0.0:* users:(("sshd",pid=2143,fd=3))
+
+========================================
+HARDENED SSH TEST
+========================================
+
+Login successful without password prompt.
+
+root@localhost: Permission denied (publickey).
+
+========================================
+SSH AGENT SETUP
+========================================
+
+Agent pid 2847
+
+2847
+
+toor      2847  0.0  0.1  11200  2048 ?        Ss   16:05   0:00 ssh-agent -s
+toor      2863  0.0  0.0   6628   884 pts/0    S+   16:05   0:00 grep --color=auto ssh-agent
+
+Enter passphrase for /home/toor/.ssh/id_rsa: ************
+Identity added: /home/toor/.ssh/id_rsa (student@example.com)
+
+4096 SHA256:J7x9rLk8sWQ8hL0kZx9P0VnG3mF0X5T0abc123 student@example.com (RSA)
+
+Welcome to Ubuntu 24.04.1 LTS
+No passphrase requested ✔
+
+========================================
+ADVANCED KEY GENERATION
+========================================
+
+Generating public/private ed25519 key pair.
+Enter passphrase (empty for no passphrase): ********
+Enter same passphrase again: ********
+Your identification has been saved in /home/toor/.ssh/id_ed25519_github
+Your public key has been saved in /home/toor/.ssh/id_ed25519_github.pub
+
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase): ********
+Enter same passphrase again: ********
+Your identification has been saved in /home/toor/.ssh/id_rsa_server
+
+========================================
+MULTI-KEY MANAGEMENT
+========================================
+
+Identity added: /home/toor/.ssh/id_rsa (student@example.com)
+Identity added: /home/toor/.ssh/id_ed25519_github (github_key)
+Identity added: /home/toor/.ssh/id_rsa_server (server_key)
+
+4096 SHA256:abc1... student@example.com (RSA)
+256 SHA256:def2... github_key (ED25519)
+4096 SHA256:ghi3... server_key (RSA)
+
+Connected automatically using configured identity.
+
+Identity removed: /home/toor/.ssh/id_ed25519_github
+
+All identities removed.
+
+========================================
+HARDENING VERIFICATION
+========================================
+
+permitrootlogin no
+passwordauthentication no
+port 2222
+maxauthtries 3
+
+Permission denied (publickey).
+
+Successful login.
+
+========================================
+SSH AGENT VERIFICATION
+========================================
+
+Confirmed running and managing keys.
+SSH_AGENT_PID=2847
