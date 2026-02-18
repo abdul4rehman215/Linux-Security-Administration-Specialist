@@ -1,0 +1,19 @@
+[Unit]
+Description=My Custom Service
+Documentation=https://example.com/myservice
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=myservice-user
+Group=myservice-user
+ExecStart=/opt/myapp/myservice.sh
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
