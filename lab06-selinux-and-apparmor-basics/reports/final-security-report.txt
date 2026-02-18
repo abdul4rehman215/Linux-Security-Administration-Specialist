@@ -1,0 +1,21 @@
+System Information:
+• Hostname: ip-172-31-10-233
+• OS Version: PRETTY_NAME="Ubuntu 24.04.1 LTS"
+• SELinux Status: Enforcing
+• AppArmor Status: apparmor module is loaded.
+
+SELinux Configuration:
+• Current Mode: Enforcing
+• Policy Type: Mode from config file: enforcing
+• Active Booleans: 12
+
+AppArmor Configuration:
+• Loaded Profiles: 32
+• Enforce Mode: 30
+• Complain Mode: 2
+
+Recommendations:
+1. Keep SELinux in enforcing mode for production systems
+2. Regularly review and update AppArmor profiles
+3. Monitor security logs for policy violations
+4. Test applications thoroughly after policy changes
