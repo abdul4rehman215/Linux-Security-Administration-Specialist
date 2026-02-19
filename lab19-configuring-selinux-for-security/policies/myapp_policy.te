@@ -1,0 +1,23 @@
+policy_module(myapp_policy, 1.0)
+
+type myapp_exec_t;
+type myapp_config_t;
+type myapp_data_t;
+type myapp_log_t;
+type myapp_t;
+
+files_type(myapp_config_t)
+files_type(myapp_data_t)
+files_type(myapp_log_t)
+
+application_executable_file(myapp_exec_t)
+application_domain(myapp_t, myapp_exec_t)
+
+allow myapp_t myapp_config_t:file { read getattr open };
+allow myapp_t myapp_data_t:file { read write create getattr open };
+allow myapp_t myapp_data_t:dir { read search getattr };
+allow myapp_t myapp_log_t:file { write create append getattr open };
+allow myapp_t myapp_log_t:dir { write add_name };
+
+allow myapp_t bin_t:file { execute read getattr open };
+allow myapp_t shell_exec_t:file { execute read getattr open };
