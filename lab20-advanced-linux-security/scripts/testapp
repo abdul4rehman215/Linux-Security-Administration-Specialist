@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Test application running"
+echo "Current user: $(whoami)"
+echo "Current directory: $(pwd)"
+
+ls /etc/ | head -5
