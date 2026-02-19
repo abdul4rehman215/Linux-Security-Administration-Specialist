@@ -1,5 +1,4 @@
-# 🛠 Troubleshooting Guide  
-## Lab 19 – Configuring SELinux for Security
+# 🛠 Troubleshooting Guide - Lab 19: Configuring SELinux for Security
 
 ---
 
