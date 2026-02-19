@@ -1,13 +1,5 @@
 # 🧪 Lab 01: Linux Command Line Foundations
 
-## 🖥 Lab Environment
-
-- **Platform:** Al Nafi Cloud Lab Environment  
-- **Operating System:** Ubuntu 24.04 LTS  
-- **User:** toor  
-- **Shell:** Bash  
-- **Access Level:** Full administrative privileges  
-
 ---
 
 ## 🎯 Objectives
@@ -33,9 +25,17 @@ By the end of this lab, I was able to:
 
 ---
 
-# 🛠 Lab Tasks Overview
+## 🖥 Lab Environment
+
+- **Platform:** Al Nafi Cloud Lab Environment  
+- **Operating System:** Ubuntu 24.04 LTS  
+- **User:** toor  
+- **Shell:** Bash  
+- **Access Level:** Full administrative privileges  
 
 ---
+
+# 🛠 Lab Tasks Overview
 
 ## 🔹 Task 1: Directory Navigation Mastery
 
