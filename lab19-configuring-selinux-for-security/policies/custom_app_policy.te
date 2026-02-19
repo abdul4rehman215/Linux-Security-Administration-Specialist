@@ -1,0 +1,10 @@
+module custom_app_policy 1.0;
+
+require {
+    type var_log_t;
+    type unconfined_t;
+    class file { create write open };
+}
+
+#============= unconfined_t ==============
+allow unconfined_t var_log_t:file { create write open };
