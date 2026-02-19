@@ -1,5 +1,4 @@
-# 🎯 Interview Questions & Answers  
-## Lab 19 – Configuring SELinux for Security
+# 🎤 Interview Q&A - Lab 19: Configuring SELinux for Security
 
 ---
 
