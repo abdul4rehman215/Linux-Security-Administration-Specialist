@@ -1,0 +1,192 @@
+==============================
+Environment Verification
+==============================
+
+toor@ip-172-31-10-247:~$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+
+toor@ip-172-31-10-247:~$ ip addr show | grep inet
+inet 127.0.0.1/8 scope host lo
+inet 172.31.10.247/20 brd 172.31.15.255 scope global dynamic ens5
+
+toor@ip-172-31-10-247:~$ ss -tuln
+Netid State   Recv-Q Send-Q Local Address:Port  Peer Address:Port
+tcp   LISTEN  0      4096   0.0.0.0:22          0.0.0.0:*
+tcp   LISTEN  0      4096   0.0.0.0:80          0.0.0.0:*
+tcp   LISTEN  0      4096   127.0.0.53:53       0.0.0.0:*
+
+toor@ip-172-31-10-247:~$ sudo iptables -L -v -n
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+
+
+==============================
+iptables Execution
+==============================
+
+toor@ip-172-31-10-247:~$ sudo /etc/iptables-security.sh
+iptables rules configured successfully
+
+toor@ip-172-31-10-247:~$ sudo iptables -L -v -n
+Chain INPUT (policy DROP)
+ pkts bytes target     prot opt in  out source   destination
+    0    0 ACCEPT     all  --  lo  *   0.0.0.0/0 0.0.0.0/0
+    0    0 ACCEPT     all  --  *   *   0.0.0.0/0 0.0.0.0/0 ctstate ESTABLISHED,RELATED
+    0    0 ACCEPT     tcp  --  *   *   0.0.0.0/0 0.0.0.0/0 tcp dpt:22
+    0    0 ACCEPT     tcp  --  *   *   0.0.0.0/0 0.0.0.0/0 tcp dpt:80
+    0    0 ACCEPT     tcp  --  *   *   0.0.0.0/0 0.0.0.0/0 tcp dpt:443
+
+
+==============================
+nftables Ruleset
+==============================
+
+toor@ip-172-31-10-247:~$ sudo nft list ruleset
+table inet security_table {
+ chain input {
+  type filter hook input priority 0; policy drop;
+  iif "lo" accept
+  ct state established,related accept
+  tcp dport 22 ct state new limit rate 4/minute accept
+  tcp dport { 80, 443 } accept
+  icmp type echo-request limit rate 1/second accept
+  log prefix "nftables-dropped: " drop
+ }
+}
+
+
+==============================
+SELinux Activation
+==============================
+
+toor@ip-172-31-10-247:~$ sestatus
+SELinux status: disabled
+
+toor@ip-172-31-10-247:~$ getenforce
+Permissive
+
+toor@ip-172-31-10-247:~$ sudo setenforce 1
+
+toor@ip-172-31-10-247:~$ getenforce
+Enforcing
+
+toor@ip-172-31-10-247:~$ ls -Z /etc/passwd
+system_u:object_r:passwd_file_t:s0 /etc/passwd
+
+toor@ip-172-31-10-247:~$ ps -eZ | head -5
+system_u:system_r:init_t:s0       1 ? 00:00:01 systemd
+system_u:system_r:sshd_t:s0    1021 ? 00:00:00 sshd
+
+
+==============================
+AppArmor Status
+==============================
+
+toor@ip-172-31-10-247:~$ sudo apparmor_status
+apparmor module is loaded.
+30 profiles are loaded.
+30 profiles are in enforce mode.
+
+toor@ip-172-31-10-247:~$ sudo aa-status | head -5
+30 profiles are loaded.
+apache2
+cron
+ssh
+
+
+==============================
+Test Application Execution
+==============================
+
+toor@ip-172-31-10-247:~$ /usr/local/bin/testapp
+Test application running
+Current user: toor
+Current directory: /home/toor
+adduser.conf
+alternatives
+apt
+bash.bashrc
+ca-certificates
+
+
+==============================
+Vulnerability Assessment
+==============================
+
+Assessment completed. Report saved to: vulnerability_report_20250306_113212.txt
+
+=== Linux Security Vulnerability Assessment ===
+Assessment Date: Thu Mar  6 11:32:12 UTC 2025
+System: Linux ip-172-31-10-247 6.8.0-31-generic x86_64 GNU/Linux
+
+Listening Ports:
+tcp LISTEN 0 4096 0.0.0.0:22
+tcp LISTEN 0 4096 0.0.0.0:80
+
+
+==============================
+Network Scan Results
+==============================
+
+Network scan completed. Report saved to: network_scan_20250306_113520.txt
+
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+443/tcp  closed https
+
+Port 21: CLOSED
+Port 22: OPEN
+Port 23: CLOSED
+Port 80: OPEN
+Port 443: CLOSED
+
+
+==============================
+Security Log Analysis
+==============================
+
+Log analysis completed. Report saved to: security_log_analysis_20250306_113745.txt
+
+=== AUTHENTICATION FAILURES ===
+Mar  6 11:20:01 ip-172-31-10-247 sshd[1054]: Failed password for invalid user admin from 192.168.1.50 port 54321 ssh2
+
+=== FIREWALL LOGS ===
+IPTABLES-DROPPED: IN=ens5 OUT= MAC=... SRC=192.168.1.50 DST=172.31.10.247
+
+
+==============================
+Comprehensive Security Assessment
+==============================
+
+Comprehensive security assessment completed!
+Master report saved to: comprehensive_security_report_20250306_114012.txt
+
+=== COMPREHENSIVE LINUX SECURITY ASSESSMENT ===
+Assessment performed on: Thu Mar  6 11:40:12 UTC 2025
+System: ip-172-31-10-247 - Linux 6.8.0-31-generic
+
+
+==============================
+Security Verification Tests
+==============================
+
+SSH Test:
+Welcome to Ubuntu 24.04.1 LTS
+
+HTTP Test:
+HTTP/1.1 200 OK
+Server: Apache/2.4.58 (Ubuntu)
+
+Blocked Port Test (FTP 21):
+nc: connect to localhost (127.0.0.1) port 21 (tcp) failed: Connection refused
+
+Restricted Write Attempt:
+/etc/test-file: Permission denied
+
+Real-time Monitoring:
+Failed password for invalid user test from 192.168.1.51
+IPTABLES-DROPPED: IN=ens5 OUT= ...
