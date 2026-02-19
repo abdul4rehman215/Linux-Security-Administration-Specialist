@@ -1,0 +1,206 @@
+==============================
+Environment Verification
+==============================
+
+-bash-4.2$ cat /etc/os-release
+NAME="CentOS Linux"
+VERSION="7 (Core)"
+ID="centos"
+PRETTY_NAME="CentOS Linux 7 (Core)"
+
+-bash-4.2$ sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+
+-bash-4.2$ getenforce
+Enforcing
+
+-bash-4.2$ cat /etc/selinux/config
+SELINUX=enforcing
+SELINUXTYPE=targeted
+
+
+==============================
+Understanding SELinux Contexts
+==============================
+
+-bash-4.2$ ls -Z /etc/passwd /etc/shadow /etc/hosts
+-rw-r--r--. root root system_u:object_r:passwd_file_t:s0 /etc/passwd
+----------. root root system_u:object_r:shadow_t:s0      /etc/shadow
+-rw-r--r--. root root system_u:object_r:net_conf_t:s0    /etc/hosts
+
+-bash-4.2$ ls -dZ /var/www/html /home /tmp
+drwxr-xr-x. root root system_u:object_r:httpd_sys_content_t:s0 /var/www/html
+drwxr-xr-x. root root system_u:object_r:home_root_t:s0         /home
+drwxrwxrwt. root root system_u:object_r:tmp_t:s0               /tmp
+
+-bash-4.2$ id -Z
+unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+
+
+==============================
+Web Test Structure
+==============================
+
+-bash-4.2$ ls -lZ /opt/webtest/
+drwxr-xr-x. root root unconfined_u:object_r:default_t:s0 logs
+drwxr-xr-x. root root unconfined_u:object_r:default_t:s0 private
+drwxr-xr-x. root root unconfined_u:object_r:default_t:s0 public
+
+-bash-4.2$ ls -lZ /opt/webtest/public/
+-rw-r--r--. root root unconfined_u:object_r:default_t:s0 index.html
+
+
+==============================
+restorecon Output
+==============================
+
+Relabeled /opt/webtest/public from default_t to httpd_sys_content_t
+Relabeled /opt/webtest/public/index.html from default_t to httpd_sys_content_t
+Relabeled /opt/webtest/private from default_t to admin_home_t
+Relabeled /opt/webtest/private/secret.txt from default_t to admin_home_t
+Relabeled /opt/webtest/logs from default_t to httpd_log_t
+Relabeled /opt/webtest/logs/access.log from default_t to httpd_log_t
+
+
+-bash-4.2$ ls -lZ /opt/webtest/
+drwxr-xr-x. root root system_u:object_r:httpd_log_t:s0 logs
+drwxr-xr-x. root root system_u:object_r:admin_home_t:s0 private
+drwxr-xr-x. root root system_u:object_r:httpd_sys_content_t:s0 public
+
+
+==============================
+Apache Test
+==============================
+
+-bash-4.2$ curl http://localhost/testsite/index.html
+Public content
+
+-bash-4.2$ getsebool -a | grep httpd | head -5
+httpd_can_network_connect --> off
+httpd_enable_cgi --> off
+httpd_read_user_content --> off
+httpd_use_nfs --> off
+httpd_use_cifs --> off
+
+
+==============================
+SELinux Denial - CGI Script
+==============================
+
+-bash-4.2$ curl http://localhost/cgi-bin/test_script.sh
+<html>
+<head><title>403 Forbidden</title></head>
+<body>
+<h1>Forbidden</h1>
+You don't have permission to access /cgi-bin/test_script.sh on this server.
+</body>
+</html>
+
+
+-bash-4.2$ ausearch -m AVC -ts recent
+----
+time->Thu Mar  6 10:12:04 2025
+type=AVC msg=audit(1741252324.123:245): avc:  denied  { execute } for  pid=1024 comm="httpd" name="test_script.sh" dev="xvda1" ino=987654 scontext=system_u:system_r:httpd_t:s0 tcontext=unconfined_u:object_r:httpd_sys_content_t:s0 tclass=file
+
+
+-bash-4.2$ journalctl -t setroubleshoot --since="10 minutes ago"
+Mar 06 10:12:05 localhost setroubleshoot: SELinux is preventing httpd from execute access on the file test_script.sh.
+
+
+==============================
+audit2allow Output
+==============================
+
+#============= httpd_t ==============
+allow httpd_t httpd_sys_content_t:file execute;
+
+
+==============================
+Custom App Denial
+==============================
+
+-bash-4.2$ /opt/custom_app.sh
+Custom app starting...
+touch: cannot touch ‘/var/log/custom_app.log’: Permission denied
+Custom app completed.
+
+
+-bash-4.2$ ausearch -m AVC -ts recent | tail -10
+type=AVC msg=audit(1741252601.234:260): avc:  denied  { create } for  pid=1089 comm="custom_app.sh" name="custom_app.log" scontext=unconfined_u:unconfined_r:unconfined_t:s0 tcontext=system_u:object_r:var_log_t:s0 tclass=file
+
+
+==============================
+After Installing custom_app_policy
+==============================
+
+-bash-4.2$ /opt/custom_app.sh
+Custom app starting...
+Custom app completed.
+
+-bash-4.2$ ausearch -m AVC -ts recent | grep custom_app || echo "No denials found"
+No denials found
+
+-bash-4.2$ ls -lZ /var/log/custom_app.log
+-rw-r--r--. root root system_u:object_r:var_log_t:s0 /var/log/custom_app.log
+
+-bash-4.2$ cat /var/log/custom_app.log
+Thu Mar  6 10:20:31 UTC 2025: Application started
+
+
+==============================
+MyApp Execution
+==============================
+
+-bash-4.2$ /opt/myapp/bin/myapp
+
+-bash-4.2$ ausearch -m AVC -ts recent | grep myapp || echo "No denials found"
+No denials found
+
+
+-bash-4.2$ cat /opt/myapp/logs/app.log
+Thu Mar  6 10:40:12 UTC 2025: Starting MyApp
+Reading config from /opt/myapp/config/app.conf
+Thu Mar  6 10:40:12 UTC 2025: Config loaded - Debug=true
+Thu Mar  6 10:40:12 UTC 2025: Processing data in /opt/myapp/data
+sample.txt
+Thu Mar  6 10:40:12 UTC 2025: MyApp completed
+
+
+-bash-4.2$ tail -15 /opt/myapp/logs/app.log
+Thu Mar  6 10:40:12 UTC 2025: MyApp completed
+Thu Mar  6 10:41:01 UTC 2025: Starting MyApp
+Reading config from /opt/myapp/config/app.conf
+Thu Mar  6 10:41:01 UTC 2025: Config loaded - Debug=true
+Thu Mar  6 10:41:01 UTC 2025: Processing data in /opt/myapp/data
+sample.txt
+newfile.txt
+Thu Mar  6 10:41:01 UTC 2025: MyApp completed
+
+
+==============================
+Final Verification
+==============================
+
+=== SELinux Status Verification ===
+Current mode: enforcing
+
+=== Custom Policy Verification ===
+myapp_policy        1.0
+custom_app_policy   1.0
+
+=== Application Test ===
+Exit code: 0
+
+=== Denial Check ===
+No recent denials found
+
+=== Log File Verification ===
+Thu Mar  6 10:45:11 UTC 2025: Processing data in /opt/myapp/data
+final_test.txt
+Thu Mar  6 10:45:11 UTC 2025: MyApp completed
