@@ -1,0 +1,4 @@
+/opt/myapp/bin/myapp -- gen_context(system_u:object_r:myapp_exec_t,s0)
+/opt/myapp/config(/.*)? gen_context(system_u:object_r:myapp_config_t,s0)
+/opt/myapp/data(/.*)? gen_context(system_u:object_r:myapp_data_t,s0)
+/opt/myapp/logs(/.*)? gen_context(system_u:object_r:myapp_log_t,s0)
