@@ -1,0 +1,19 @@
+#!/bin/bash
+
+CONFIG_FILE="/opt/myapp/config/app.conf"
+DATA_DIR="/opt/myapp/data"
+LOG_FILE="/opt/myapp/logs/app.log"
+
+echo "$(date): Starting MyApp" >> $LOG_FILE
+echo "Reading config from $CONFIG_FILE" >> $LOG_FILE
+
+if [ -f "$CONFIG_FILE" ]; then
+ source "$CONFIG_FILE"
+ echo "$(date): Config loaded - Debug=$DEBUG" >> $LOG_FILE
+else
+ echo "$(date): No config file found" >> $LOG_FILE
+fi
+
+echo "$(date): Processing data in $DATA_DIR" >> $LOG_FILE
+ls "$DATA_DIR" >> $LOG_FILE 2>&1
+echo "$(date): MyApp completed" >> $LOG_FILE
