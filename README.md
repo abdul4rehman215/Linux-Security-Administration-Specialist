@@ -113,6 +113,14 @@ labXX-name/
 └── troubleshooting.md
 ```
 
+#### This ensures:
+
+- Reproducibility
+- Structured documentation
+- Automation clarity
+- Interview readiness
+- Executive reporting alignment
+
 ---
 
 # 📚 Labs Index (1–20)
@@ -424,14 +432,13 @@ This heatmap reflects practical, hands-on Linux Security Engineering implementat
 - ████████ = Strong Working Implementation  
 - ███████ = Foundational + Applied Security Context  
 
-
 ---
 
 # 🚀 How To Use
 
 ```bash
 git clone https://github.com/abdul4rehman215/Linux-Security-Administration-Specialist.git
-cd Linux-Security-Administration-Specialis
+cd Linux-Security-Administration-Specialist
 cd labXX-name
 ```
 
@@ -511,3 +518,5 @@ Linux Security • SOC Engineering • Security Automation
   <a href="mailto:abdul4rehman215@gmail.com">
     <img src="https://img.shields.io/badge/Email-EE0000?style=for-the-badge&logo=gmail&logoColor=white" />
   </a>
+
+---
