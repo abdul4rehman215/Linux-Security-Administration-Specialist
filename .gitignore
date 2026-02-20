@@ -1,0 +1,147 @@
+# =====================================================
+# Linux Security & Administration Specialist
+# Consolidated .gitignore (Labs 1–20)
+# =====================================================
+
+# ==========================
+# General Logs & Reports
+# ==========================
+*.log
+*.log.*
+*.out
+*.tmp
+*.temp
+*.lock
+logs/
+cron_logs/
+
+# Monitoring logs
+system_monitor.log
+cpu_alerts.log
+memory_alerts.log
+sudo.log
+sudo-commands.log
+fail2ban.log
+fail2ban-monitor.log
+fail2ban-maintenance.log
+verification.log
+restore.log
+restoration_verification.log
+
+# ==========================
+# Generated Reports
+# ==========================
+system_report_*.txt
+file_report_*.txt
+backup_report_*.txt
+vulnerability_report_*.txt
+network_scan_*.txt
+security_log_analysis_*.txt
+comprehensive_security_report_*.txt
+final-security-report.txt
+tree_output.txt
+
+# ==========================
+# Backup & Archive Files
+# ==========================
+*.bak
+*.backup
+*.orig
+*.old
+*~
+backups/
+backup_*/
+audit_backup_*/
+inventory_*/
+restore_packages.sh
+
+# Archives
+*.tar
+*.tar.gz
+*.gz
+
+# ==========================
+# Cron & PID Files
+# ==========================
+*.pid
+*.sock
+
+# ==========================
+# Tcpdump / Network Captures
+# ==========================
+*.pcap
+*.dump
+*.nmap
+*.gnmap
+*.xml
+tcpdump_captures/
+network_logs/
+incident_capture.pcap
+security_analysis.pcap
+port_scan_attempts.pcap
+dns_queries.pcap
+large_packets.pcap
+
+# ==========================
+# SSH Keys & Sensitive Files
+# ==========================
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+known_hosts
+environment
+
+# ==========================
+# SELinux / Policy Builds
+# ==========================
+*.pp
+*.mod
+*.fc
+*.te~
+*.if
+custom_app_policy*
+mypolicy*
+
+# ==========================
+# Databases
+# ==========================
+*.sqlite3
+*.db
+
+# ==========================
+# Temporary Test Files
+# ==========================
+test*
+
+# ==========================
+# Environment Files
+# ==========================
+.env
+.env.*
+
+# ==========================
+# Python Cache (Future-proofing)
+# ==========================
+__pycache__/
+*.pyc
+
+# ==========================
+# Editor & IDE
+# ==========================
+.vscode/
+.idea/
+
+# ==========================
+# OS Generated Files
+# ==========================
+.DS_Store
+Thumbs.db
+.bash_history
+
+# ==========================
+# System Temp Directories
+# ==========================
+/tmp/
