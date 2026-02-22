@@ -133,8 +133,15 @@ labXX-name/
 
 # 🧱 Section 1: Linux Foundations & Core Security (Labs 1–6)
 
-### Focus:
-Linux administration fundamentals, access control, privilege hardening & management, DAC/MAC frameworks.
+<div align="left">
+
+![Category](https://img.shields.io/badge/Category-Linux%20Foundations-2E3440?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Access%20Control-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Privilege%20Hardening-critical?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-DAC%20%26%20ACL-orange?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-MAC%20Frameworks-purple?style=for-the-badge)
+
+</div>
 
 | Lab | Title | Core Focus |
 |-----|-------|------------|
@@ -157,8 +164,15 @@ Linux administration fundamentals, access control, privilege hardening & managem
 
 # ⚙ Section 2: System Administration & Network Security (Labs 7–10)
 
-### Focus:
-Processes, services, networking diagnostics, firewall engineering.
+<div align="left">
+
+![Category](https://img.shields.io/badge/Category-System%20Administration-37474F?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Process%20Monitoring-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Service%20Engineering-6A1B9A?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Network%20Diagnostics-FF8F00?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Firewall%20Engineering-red?style=for-the-badge)
+
+</div>
 
 | Lab | Title | Core Focus |
 |-----|-------|------------|
@@ -178,8 +192,16 @@ Processes, services, networking diagnostics, firewall engineering.
 
 # 🔐 Section 3: Advanced Linux Security & Monitoring (Labs 11–15)
 
-### Focus:
-Package management, SSH hardening, packet analysis, centralized logging, system auditing.
+<div align="left">
+
+![Category](https://img.shields.io/badge/Category-Advanced%20Security-1A237E?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Package%20Automation-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-SSH%20Hardening-critical?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Traffic%20Inspection-FF6F00?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Log%20Engineering-00897B?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Syscall%20Auditing-5E35B1?style=for-the-badge)
+
+</div>
 
 | Lab | Title | Core Focus |
 |-----|-------|------------|
@@ -193,7 +215,7 @@ Package management, SSH hardening, packet analysis, centralized logging, system 
 - Secure SSH deployment
 - Log pipeline engineering
 - Traffic-based incident detection
-- System call auditing
+- System auditing
 - Compliance-oriented monitoring
 - Bash-based monitoring dashboards
 
@@ -201,8 +223,15 @@ Package management, SSH hardening, packet analysis, centralized logging, system 
 
 # 🛠 Section 4: Automation, Defense & Recovery (Labs 16–18)
 
-### Focus:
-Cron Automation pipelines, intrusion prevention, disaster recovery, backup engineering.
+<div align="left">
+
+![Category](https://img.shields.io/badge/Category-Automation%20%26%20Defense-263238?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Cron%20Engineering-blue?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Intrusion%20Prevention-critical?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Backup%20Architecture-FF9800?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Disaster%20Recovery-6D4C41?style=for-the-badge)
+
+</div>
 
 | Lab | Title | Core Focus |
 |-----|-------|------------|
@@ -223,8 +252,16 @@ Cron Automation pipelines, intrusion prevention, disaster recovery, backup engin
 
 # 🛡 Section 5: Enterprise Linux Security Engineering (Labs 19–20)
 
-### Focus:
-Deep SELinux policy engineering & full defense-in-depth security architecture.
+<div align="left">
+
+![Category](https://img.shields.io/badge/Category-Enterprise%20Security-000000?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-SELinux%20Policy%20Engineering-critical?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-AppArmor%20Confinement-purple?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Stateful%20Firewalling-red?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Vulnerability%20Automation-FF6F00?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Defense--in--Depth-37474F?style=for-the-badge)
+
+</div>
 
 | Lab | Title | Core Focus |
 |-----|-------|------------|
@@ -416,21 +453,21 @@ This heatmap reflects practical, hands-on Linux Security Engineering implementat
 | 👤 Identity & Access Governance | ██████████ 100% | User, Group & RBAC Enforcement | useradd, chage, sudo |
 | 🔐 SSH Security Engineering | ██████████ 100% | Key Management & Access Restriction | ssh-keygen, sshd_config |
 | 🔥 Firewall Architecture | ██████████ 100% | Stateful Filtering & Rule Engineering | UFW, iptables, nftables |
-| 📡 Network Monitoring | █████████ 90% | Traffic Inspection & Port Analysis | tcpdump, ss, netstat |
-| 📜 Centralized Logging | █████████ 90% | Log Lifecycle & Filtering | rsyslog, journalctl, logrotate |
-| 🧾 System Auditing | █████████ 90% | Syscall Monitoring & Compliance Rules | auditd, ausearch, aureport |
-| 🧩 Mandatory Access Control | █████████ 90% | Policy Engineering & Context Management | SELinux, AppArmor |
-| 🚫 Intrusion Prevention | █████████ 90% | Log-Based Detection & Progressive Banning | Fail2Ban |
-| 🔄 Automation Engineering | █████████ 90% | Scheduled Monitoring & Security Scripts | Bash, cron |
-| 💾 Backup & Disaster Recovery | █████████ 90% | Incremental Backup & Restoration Validation | rsync |
-| 🧠 Defense-in-Depth Architecture | █████████ 90% | Layered Security Model Implementation | Firewall + MAC + Audit |
+| 📡 Network Monitoring | █████████░ 90% | Traffic Inspection & Port Analysis | tcpdump, ss, netstat |
+| 📜 Centralized Logging | █████████░ 90% | Log Lifecycle & Filtering | rsyslog, journalctl, logrotate |
+| 🧾 System Auditing | █████████░ 90% | Syscall Monitoring & Compliance Rules | auditd, ausearch, aureport |
+| 🧩 Mandatory Access Control | █████████░ 90% | Policy Engineering & Context Management | SELinux, AppArmor |
+| 🚫 Intrusion Prevention | █████████░ 90% | Log-Based Detection & Progressive Banning | Fail2Ban |
+| 🔄 Automation Engineering | █████████░ 90% | Scheduled Monitoring & Security Scripts | Bash, cron |
+| 💾 Backup & Disaster Recovery | █████████░ 90% | Incremental Backup & Restoration Validation | rsync |
+| 🧠 Defense-in-Depth Architecture | █████████░ 90% | Layered Security Model Implementation | Firewall + MAC + Audit |
 
 ### 📌 Proficiency Scale
 
 - ██████████ = Implemented End-to-End with Automation & Validation  
-- █████████ = Advanced Practical Implementation  
-- ████████ = Strong Working Implementation  
-- ███████ = Foundational + Applied Security Context  
+- █████████░ = Advanced Practical Implementation  
+- ████████░░ = Strong Working Implementation  
+- ███████░░░ = Foundational + Applied Security Context  
 
 ---
 
