@@ -649,6 +649,14 @@ This repository represents responsible, defense-focused Linux Security Engineeri
 
 ---
 
+## 🌐 Labs Portfolio Post on LinkedIn
+
+I also shared this Lab series Portfolio on LinkedIn with a concise portfolio summary, key highlights, and implementation context.
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-View%20Project%20Post-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/posts/abdul4rehman215_linux-securityadministration-specialist-activity-7446942299957399552-WIa1?)
+
+---
+
 # ⭐ Final Note
 
 This repository reflects structured, execution-driven Linux Security Engineering — progressing from foundational administration to enterprise-grade security architecture and policy engineering.
